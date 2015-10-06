@@ -1,15 +1,15 @@
 #Projeto Game Store
-Projeto em Java de um software de controle de vendas de uma loja de games.
+Projeto em Java de um software de controle de vendas de uma loja de games, para o curso de Ciência da Computação.
 
 **Requisitos Mínimos**
 
-IDE > **Eclipe JAVA EE**
+ - IDE > **Eclipe JAVA EE**
 
-Plugin > **EGit** para Eclipse
+ - Plugin > **EGit** para Eclipse
 
 Se não tem o **Eclipse Java EE** [clique aqui](https://www.eclipse.org/downloads/index-developer.php?release=kepler).
 
-Se não tem o plugin **EGit** para o Eclipse [clique aqui](http://www.eclipse.org/egit/download/)
+Se não tem o plugin **EGit** para o Eclipse [clique aqui](http://www.eclipse.org/egit/download/).
 
 #Fazendo o Check Out do projeto direto do Github
 Recomendado que faça o check it out para uma pasta perto da raiz do HD e com nome curto e sem espaços no nome e no caminho para a pasta (Exemplo > C:\ProjetoGameStore), tenha em mente que nomes de pasta ou caminhos longos e ou com espaço podem causar dores de cabeça futuras. Keep it Simple!
