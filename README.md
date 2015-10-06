@@ -4,6 +4,7 @@ Projeto em Java de um software de controle de vendas de uma loja de games.
 **Requisitos Mínimos**
 
 IDE > **Eclipe JAVA EE**
+
 Plugin > **EGit** para Eclipse
 
 Se não tem o **Eclipse Java EE** [clique aqui](https://www.eclipse.org/downloads/index-developer.php?release=kepler).
