@@ -1,6 +1,11 @@
 #Projeto Game Store
 Projeto em Java de um software de controle de vendas de uma loja de games, para o curso de Ciência da Computação.
 
+
+**Acompanhe a Wiki do projeto**
+importante acompanhar a Wiki, pois existem diversas regras que devem ser seguidas para o melhor desenvolvimento e aproveitamento do projeto.
+
+
 **Requisitos Mínimos**
 
  - IDE > **Eclipe JAVA EE**
