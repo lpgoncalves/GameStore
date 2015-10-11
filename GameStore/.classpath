@@ -6,6 +6,8 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Program Files/Java/jre1.8.0_60/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Lucas/Documents/eclipse/GameStore/GameStore/lib/sqljdbc4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/sqljdbc4.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/LuísPaulo/Downloads/JTattoo-1.6.11.jar"/>
+	<classpathentry exported="true" kind="lib" path="SwingSets2(BeautyEyeLNFDemo).jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
