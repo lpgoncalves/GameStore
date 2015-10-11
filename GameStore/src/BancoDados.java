@@ -41,9 +41,18 @@ public class BancoDados {
 				"preco_produto decimal(10,2), " +
 				"PRIMARY KEY (id_produto))"; 
 		
-		String games = "";
+		String games = "CREATE TABLE Games" +
+		"(game_name varchar(30) NOT NULL, " +
+		"memory_required int, " +
+		"numero_de_pl int, " +
+		"detalhes varchar(30))";
 		
-		String console = "";
+		String console = "CREATE TABLE Consoles" +
+		"(driver_type varchar(30) NOT NULL, " +
+		"size int, " +
+		"detalhes_consoles varchar(50)"
+				
+				;
 		
 		String acessorios = "";
 		
