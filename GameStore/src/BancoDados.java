@@ -50,9 +50,7 @@ public class BancoDados {
 		String console = "CREATE TABLE Consoles" +
 		"(driver_type varchar(30) NOT NULL, " +
 		"size int, " +
-		"detalhes_consoles varchar(50)"
-				
-				;
+		"detalhes_consoles varchar(50))";
 		
 		String acessorios = "";
 		
