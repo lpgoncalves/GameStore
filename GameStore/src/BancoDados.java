@@ -74,7 +74,7 @@ public class BancoDados {
 			
 			stmt.setInt(1, 1);
 			stmt.setString(2, "Teste");
-			stmt.executeUpdate();
+			stmt.executeUpdate()
 */
 
 
