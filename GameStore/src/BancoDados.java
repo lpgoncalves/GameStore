@@ -104,7 +104,7 @@ public class BancoDados {
 		System.out.println("Tabela compras_cliente criada com sucesso");
 		
 		}catch(Exception e){
-			e.printStackTrace();
+			System.out.println("Já existi as tabelas");;
 		}
 	}
 }
