@@ -70,6 +70,7 @@ public class BancoDados {
 		stmt.executeUpdate(tabela_produtos);
 		System.out.println("Tabela Produtos criada com sucesso");
 		
+		
 		}catch(Exception e){
 			e.printStackTrace();
 		}
