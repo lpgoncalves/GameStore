@@ -7,7 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lib/sqljdbc4.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/LuísPaulo/Downloads/JTattoo-1.6.11.jar"/>
-	<classpathentry exported="true" kind="lib" path="SwingSets2(BeautyEyeLNFDemo).jar"/>
+	<classpathentry kind="lib" path="lib/SwingSet2.jar"/>
+	<classpathentry kind="lib" path="lib/JTattoo-1.6.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
