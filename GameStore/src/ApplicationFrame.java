@@ -25,6 +25,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.JScrollPane;
+import java.awt.Button;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
 
 public class ApplicationFrame extends JFrame {
 
@@ -32,6 +38,8 @@ public class ApplicationFrame extends JFrame {
 	private JTextField TXT_Login;
 	private JPasswordField passwordField;
 	private JTable table;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -59,7 +67,7 @@ public class ApplicationFrame extends JFrame {
 	 */
 	public ApplicationFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 833, 787);
+		setBounds(100, 100, 833, 775);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -169,10 +177,105 @@ public class ApplicationFrame extends JFrame {
 		table.getColumnModel().getColumn(4).setPreferredWidth(116);
 		table.setBorder(new CompoundBorder());
 		
+		textField = new JTextField();
+		textField.setBounds(138, 93, 299, 33);
+		Panel_User.add(textField);
+		textField.setColumns(10);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 570, 39);
+		panel.setBackground(new Color(102, 102, 102));
+		Panel_User.add(panel);
+		panel.setLayout(null);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(102, 102, 102));
+		panel_1.setBounds(0, 0, 136, 39);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblAdicionar = new JLabel("ADICIONAR");
+		lblAdicionar.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
+		lblAdicionar.setForeground(new Color(255, 255, 255));
+		lblAdicionar.setBounds(45, 13, 91, 14);
+		panel_1.add(lblAdicionar);
+		
+		JLabel label = new JLabel("");
+		label.setVerticalAlignment(SwingConstants.BOTTOM);
+		label.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Plus Math-26.png"));
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
+		label.setBounds(10, 0, 30, 33);
+		panel_1.add(label);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setLayout(null);
+		panel_2.setBackground(new Color(102, 102, 102));
+		panel_2.setBounds(134, 0, 136, 39);
+		panel.add(panel_2);
+		
+		JLabel lblEditar = new JLabel("EDITAR");
+		lblEditar.setForeground(Color.WHITE);
+		lblEditar.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
+		lblEditar.setBounds(45, 13, 91, 14);
+		panel_2.add(lblEditar);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Edit-26.png"));
+		label_2.setVerticalAlignment(SwingConstants.BOTTOM);
+		label_2.setForeground(Color.WHITE);
+		label_2.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
+		label_2.setBounds(10, 0, 30, 33);
+		panel_2.add(label_2);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setLayout(null);
+		panel_3.setBackground(new Color(102, 102, 102));
+		panel_3.setBounds(271, 0, 136, 39);
+		panel.add(panel_3);
+		
+		JLabel lblExcluir = new JLabel("EXCLUIR");
+		lblExcluir.setForeground(Color.WHITE);
+		lblExcluir.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
+		lblExcluir.setBounds(45, 13, 91, 14);
+		panel_3.add(lblExcluir);
+		
+		JLabel label_3 = new JLabel("");
+		label_3.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Delete-26.png"));
+		label_3.setVerticalAlignment(SwingConstants.BOTTOM);
+		label_3.setForeground(Color.WHITE);
+		label_3.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
+		label_3.setBounds(10, 0, 30, 33);
+		panel_3.add(label_3);
+		
+		JLabel lblNome = new JLabel("NOME");
+		lblNome.setForeground(new Color(0, 153, 255));
+		lblNome.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		lblNome.setBounds(77, 102, 50, 14);
+		Panel_User.add(lblNome);
+		
+		JLabel lblCpfcnpj = new JLabel("CPF/CNPJ");
+		lblCpfcnpj.setForeground(new Color(0, 153, 255));
+		lblCpfcnpj.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		lblCpfcnpj.setBounds(50, 138, 77, 24);
+		Panel_User.add(lblCpfcnpj);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(138, 137, 299, 33);
+		Panel_User.add(textField_1);
+		
+		JButton btnPesquisar = new JButton("PESQUISAR");
+		btnPesquisar.setFont(new Font("Segoe UI Semilight", Font.BOLD, 14));
+		btnPesquisar.setForeground(new Color(51, 153, 204));
+		btnPesquisar.setBounds(336, 174, 101, 31);
+		Panel_User.add(btnPesquisar);
+		
 		JPanel Panel_Side = new JPanel();
+		Panel_Side.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		Panel_Side.setVisible(false);
 		Panel_Side.setEnabled(false);
-		Panel_Side.setBounds(0, 187, 208, 433);
+		Panel_Side.setBounds(0, 178, 210, 513);
 		contentPane.add(Panel_Side);
 		Panel_Side.setLayout(null);
 		
