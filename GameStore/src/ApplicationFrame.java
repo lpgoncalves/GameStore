@@ -45,7 +45,7 @@ public class ApplicationFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField TXT_Login;
-	private JPasswordField passwordField;
+	private JPasswordField TXT_Password;
 	private JTable table;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -75,6 +75,7 @@ public class ApplicationFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ApplicationFrame() {
+		setResizable(false);
 		try {
 			UIManager.setLookAndFeel("org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelWin");
 		} catch (Throwable e) {
@@ -94,6 +95,7 @@ public class ApplicationFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		contentPane.setDefaultLocale(null);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setForeground(new Color(102, 153, 204));
@@ -154,9 +156,9 @@ public class ApplicationFrame extends JFrame {
 		BT_Entrar.setForeground(new Color(51, 153, 255));
 		BT_Entrar.setFont(new Font("Segoe UI Semilight", Font.BOLD, 18));
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(105, 184, 238, 30);
-		Panel_Login.add(passwordField);
+		TXT_Password = new JPasswordField();
+		TXT_Password.setBounds(105, 184, 238, 30);
+		Panel_Login.add(TXT_Password);
 		
 		JPanel Panel_User = new JPanel();
 		Panel_Card.add(Panel_User, "name_8185795600670");
@@ -343,53 +345,134 @@ public class ApplicationFrame extends JFrame {
 		contentPane.add(Panel_Side);
 		Panel_Side.setLayout(null);
 		
-		JButton BT_Customer = new JButton("CLIENTES");
-		BT_Customer.setVisible(false);
-		BT_Customer.setForeground(new Color(51, 153, 255));
-		BT_Customer.setFont(new Font("Segoe WP SemiLight", Font.PLAIN, 16));
-		BT_Customer.setBounds(10, 109, 189, 31);
-		Panel_Side.add(BT_Customer);
+		JPanel Panel_SideDashboard = new JPanel();
+		Panel_SideDashboard.setBounds(0, 46, 4, 53);
+		Panel_Side.add(Panel_SideDashboard);
 		
-		JButton BT_Products = new JButton("PRODUTOS");
-		BT_Products.setVisible(false);
-		BT_Products.setForeground(SystemColor.textHighlight);
-		BT_Products.setFont(new Font("Segoe WP SemiLight", Font.PLAIN, 16));
-		BT_Products.setBounds(10, 155, 189, 31);
-		Panel_Side.add(BT_Products);
+		JPanel Panel_Dashboard = new JPanel();
 		
-		JButton BT_Dashboard = new JButton("DASHBOARD");
-		BT_Dashboard.setVisible(false);
-		BT_Dashboard.setForeground(SystemColor.textHighlight);
-		BT_Dashboard.setFont(new Font("Segoe WP SemiLight", Font.PLAIN, 16));
-		BT_Dashboard.setBounds(10, 67, 189, 31);
-		Panel_Side.add(BT_Dashboard);
-		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(10, 197, 10, 37);
-		Panel_Side.add(panel_5);
-		
-		JPanel panel_4 = new JPanel();
-		panel_4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				panel_5.setBackground(Color.BLUE);
-			}
-		});
-		panel_4.setBounds(20, 197, 173, 37);
-		Panel_Side.add(panel_4);
+		Panel_Dashboard.setBounds(7, 53, 173, 37);
+		Panel_Side.add(Panel_Dashboard);
 		
 		BT_Entrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Panel_Login.setVisible(false);
+				Panel_Side.setVisible(true);
 				Panel_User.setVisible(true);
 			}
 		});
+		Panel_Dashboard.setLayout(null);
 		
-		JLabel lblDashboard = new JLabel("DASHBOARD");
-		lblDashboard.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 16));
-		lblDashboard.setBounds(new Rectangle(0, 11, 0, 0));
-		lblDashboard.setAlignmentY(Component.TOP_ALIGNMENT);
-		panel_4.add(lblDashboard);
+		JLabel LB_Dashboard = new JLabel("DASHBOARD");
+		LB_Dashboard.setForeground(SystemColor.textHighlight);
+		LB_Dashboard.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		LB_Dashboard.setBounds(new Rectangle(41, 5, 132, 22));
+		LB_Dashboard.setAlignmentY(Component.TOP_ALIGNMENT);
+		Panel_Dashboard.add(LB_Dashboard);
+		
+		JLabel LB_ImgDashboard = new JLabel("");
+		LB_ImgDashboard.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Dashboard Filled-32.png"));
+		LB_ImgDashboard.setBounds(0, 2, 32, 32);
+		Panel_Dashboard.add(LB_ImgDashboard);
+		LB_ImgDashboard.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 20));
+		LB_ImgDashboard.setAlignmentY(0.0f);
+		
+		JPanel Panel_Customers = new JPanel();
+		
+		Panel_Customers.setLayout(null);
+		Panel_Customers.setBounds(7, 125, 173, 37);
+		Panel_Side.add(Panel_Customers);
+		
+		JLabel LB_Customers = new JLabel("CLIENTES");
+		LB_Customers.setForeground(SystemColor.textHighlight);
+		LB_Customers.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		LB_Customers.setBounds(new Rectangle(41, 5, 132, 22));
+		LB_Customers.setAlignmentY(0.0f);
+		LB_Customers.setBounds(41, 5, 132, 22);
+		Panel_Customers.add(LB_Customers);
+		
+		JLabel LB_ImgCustomers = new JLabel("");
+		LB_ImgCustomers.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Gender Neutral User-32.png"));
+		LB_ImgCustomers.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 20));
+		LB_ImgCustomers.setAlignmentY(0.0f);
+		LB_ImgCustomers.setBounds(0, 2, 32, 32);
+		Panel_Customers.add(LB_ImgCustomers);
+		
+		JPanel Panel_SideCustomers = new JPanel();
+		Panel_SideCustomers.setBounds(0, 117, 4, 53);
+		Panel_Side.add(Panel_SideCustomers);
+		
+		JPanel Panel_Products = new JPanel();
+		
+		Panel_Products.setLayout(null);
+		Panel_Products.setBounds(7, 193, 173, 37);
+		Panel_Side.add(Panel_Products);
+		
+		JLabel LB_Products = new JLabel("PRODUTOS");
+		LB_Products.setForeground(SystemColor.textHighlight);
+		LB_Products.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		LB_Products.setBounds(new Rectangle(41, 5, 132, 22));
+		LB_Products.setAlignmentY(0.0f);
+		LB_Products.setBounds(41, 5, 132, 22);
+		Panel_Products.add(LB_Products);
+		
+		JLabel LB_ImgProducts = new JLabel("");
+		LB_ImgProducts.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Controller-32.png"));
+		LB_ImgProducts.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 20));
+		LB_ImgProducts.setAlignmentY(0.0f);
+		LB_ImgProducts.setBounds(0, 2, 32, 32);
+		Panel_Products.add(LB_ImgProducts);
+		
+		JPanel Panel_SideProducts = new JPanel();
+		Panel_SideProducts.setBounds(0, 188, 4, 53);
+		Panel_Side.add(Panel_SideProducts);
+		
+		
+		
+		Panel_Dashboard.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				Panel_SideDashboard.setBackground(Color.BLUE);
+				LB_Dashboard.setForeground(Color.BLACK);
+				LB_Dashboard.setFont(LB_Dashboard.getFont().deriveFont(Font.BOLD));
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				Panel_SideDashboard.setBackground(Color.white);
+				LB_Dashboard.setForeground(SystemColor.textHighlight);
+				LB_Dashboard.setFont(LB_Dashboard.getFont().deriveFont(Font.PLAIN));
+			}
+		});
+		
+		Panel_Customers.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				Panel_SideCustomers.setBackground(Color.BLUE);
+				LB_Customers.setForeground(Color.BLACK);
+				LB_Customers.setFont(LB_Customers.getFont().deriveFont(Font.BOLD));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Panel_SideCustomers.setBackground(Color.white);
+				LB_Customers.setForeground(SystemColor.textHighlight);
+				LB_Customers.setFont(LB_Customers.getFont().deriveFont(Font.PLAIN));
+			}
+		});
+		
+		Panel_Products.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				Panel_SideProducts.setBackground(Color.BLUE);
+				LB_Products.setForeground(Color.BLACK);
+				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Panel_SideProducts.setBackground(Color.white);
+				LB_Products.setForeground(SystemColor.textHighlight);
+				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.PLAIN));
+			}
+		});
 		
 		contentPane.setVisible(true);
 	}
