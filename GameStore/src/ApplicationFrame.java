@@ -55,6 +55,7 @@ public class ApplicationFrame extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTable Table_Product;
+	private Object[][] tabelaArray; 
 
 	/**
 	 * Launch the application.
@@ -93,7 +94,11 @@ public class ApplicationFrame extends JFrame {
 		BancoDados bd = new BancoDados();
 		Connection con = bd.ConectaBD(jdbc, "sa", "123456");
 		
-		bd.CriarTabela(con);
+		/* Criação das tabelas, caso queira descomente essa parte para que ele cria todas as tabelas.
+		 * bd.CriarTabela(con);
+		 */
+		
+		tabelaArray = new Object[9][5];
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 833, 775);
@@ -201,29 +206,11 @@ public class ApplicationFrame extends JFrame {
 		scrollPane.setViewportView(table);
 		table.setShowVerticalLines(true);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
+			tabelaArray,
 			new String[] {
 				"ID", "Nome", "CPF/CNPJ", "Endere\u00E7o", "Obs"
 			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Object.class, Object.class, Object.class, Object.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+		) );
 		table.getColumnModel().getColumn(0).setPreferredWidth(31);
 		table.getColumnModel().getColumn(1).setPreferredWidth(180);
 		table.getColumnModel().getColumn(2).setPreferredWidth(84);
@@ -329,6 +316,7 @@ public class ApplicationFrame extends JFrame {
 				try {
 					count.next();
 					int tm = count.getInt("tm");
+					if(tm < 9) tm = 9;
 					Object[][] tabela = new Object[tm][5];
 					int i = 0;
 					while(rs.next()){
@@ -346,14 +334,7 @@ public class ApplicationFrame extends JFrame {
 							new String[] {
 								"ID", "Nome", "CPF/CNPJ", "Endere\u00E7o", "Obs"
 							}
-						) {
-							Class[] columnTypes = new Class[] {
-								Object.class, Object.class, Object.class, Object.class, String.class
-							};
-							public Class getColumnClass(int columnIndex) {
-								return columnTypes[columnIndex];
-							}
-						});
+						));
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -461,6 +442,40 @@ public class ApplicationFrame extends JFrame {
 		Panel_Products.add(textField_1);
 		
 		JButton button = new JButton("PESQUISAR");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ResultSet[] result = bd.ConsultarProduto(con,textField.getText());
+				ResultSet rs = result[0];
+				ResultSet count = result[1];
+				
+				try {
+					count.next();
+					int tm = count.getInt("tm");
+					if(tm < 9) tm = 9;
+					Object[][] tabela = new Object[tm][5];
+					int i = 0;
+					while(rs.next()){
+						tabela[i][0] = rs.getInt("id_produto");
+						tabela[i][1] = rs.getString("nome_produto");
+						tabela[i][2] = null;
+						tabela[i][3] = rs.getString("descricao_produto");
+						tabela[i][4] = rs.getBigDecimal("preco_produto");
+						
+						i++;
+					}
+				
+					Table_Product.setModel(new DefaultTableModel(
+							tabela,
+							new String[] {
+									"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
+							}
+						));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		button.setForeground(new Color(51, 153, 204));
 		button.setFont(new Font("Segoe UI Semilight", Font.BOLD, 14));
 		button.setBounds(336, 174, 101, 31);
@@ -472,8 +487,7 @@ public class ApplicationFrame extends JFrame {
 		
 		Table_Product = new JTable();
 		Table_Product.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
+			tabelaArray,
 			new String[] {
 				"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
 			}
@@ -679,6 +693,9 @@ public class ApplicationFrame extends JFrame {
 				LB_Products.setForeground(Color.BLACK);
 				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
 				
+				if (Panel_Client.isVisible()) {
+					Panel_Client.setVisible(false);
+				}
 				Panel_Products.setVisible(true);
 				
 			}

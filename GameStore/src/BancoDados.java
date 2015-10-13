@@ -29,18 +29,39 @@ public class BancoDados {
 	
 	public ResultSet[] ConsultarCliente(Connection con, String nome, String doc){
 		try{
-		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM Cliente WHERE nome_cliente LIKE '"+ nome +"%' or codigo_cliente = '"+ doc +"'");
-		
-		Statement stmt1 = con.createStatement();
-		ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm FROM Cliente");
-		
-		ResultSet[] result = new ResultSet[]{
-				rs, count
-		};
-		System.out.println("Consulta realizada com sucesso");
-		return result;
-		
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Cliente WHERE nome_cliente LIKE '"+ nome +"%' or codigo_cliente = '"+ doc +"'");
+			
+			Statement stmt1 = con.createStatement();
+			ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm FROM Cliente WHERE nome_cliente LIKE '"+ nome +"%' or codigo_cliente = '"+ doc +"'");
+			
+			ResultSet[] result = new ResultSet[]{
+					rs, count
+			};
+			System.out.println("Consulta realizada com sucesso");
+			return result;
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ResultSet[] ConsultarProduto(Connection con, String produto){
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Produtos WHERE nome_produto LIKE '"+ produto +"%'");
+			
+			Statement stmt1 = con.createStatement();
+			ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm FROM Produtos WHERE nome_produto LIKE '"+ produto +"%'"); 
+			
+			ResultSet[] result = new ResultSet[]{
+				rs, count	
+			};
+			
+			System.out.println("Consulta realizada com sucesso");
+			return result;
+			
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
