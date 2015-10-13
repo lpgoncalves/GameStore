@@ -1,7 +1,10 @@
+import java.nio.channels.NetworkChannel;
 import java.sql.*;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import com.jtattoo.plaf.AbstractBorderFactory;
 
 public class Main {
 
@@ -14,7 +17,7 @@ public class Main {
 		
 		bd.CriarTabela(con);
 		
-		try {
+		/*try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -26,11 +29,13 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block 
 			e.printStackTrace();
-		}
+		}*/
         // start application
-        new ApplicationFrame();
+        
+		ApplicationFrame AF = new ApplicationFrame();
+		AF.main(args);
 	}
 
 }

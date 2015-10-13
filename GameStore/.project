@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Util/Resources/GameStoreLogo.png</name>
-			<type>1</type>
-			<location>C:/Users/LuísPaulo/Downloads/GameStoreLogo.png</location>
-		</link>
-	</linkedResources>
 </projectDescription>

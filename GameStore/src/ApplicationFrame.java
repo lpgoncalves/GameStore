@@ -18,6 +18,8 @@ import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.nio.channels.NetworkChannel;
+import java.text.Collator;
+
 import javax.swing.JPasswordField;
 import java.awt.CardLayout;
 import javax.swing.JTable;
@@ -31,6 +33,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
+import java.awt.Component;
+import java.awt.Rectangle;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ApplicationFrame extends JFrame {
 
@@ -66,6 +72,12 @@ public class ApplicationFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ApplicationFrame() {
+		try {
+			UIManager.setLookAndFeel("org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelWin");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 833, 775);
 		contentPane = new JPanel();
@@ -125,6 +137,7 @@ public class ApplicationFrame extends JFrame {
 		LB_Senha.setFont(new Font("Segoe WP SemiLight", Font.PLAIN, 16));
 		
 		JButton BT_Entrar = new JButton("ENTRAR");
+		
 		BT_Entrar.setBounds(106, 224, 238, 39);
 		Panel_Login.add(BT_Entrar);
 		BT_Entrar.setBackground(new Color(51, 153, 255));
@@ -299,5 +312,34 @@ public class ApplicationFrame extends JFrame {
 		BT_Dashboard.setFont(new Font("Segoe WP SemiLight", Font.PLAIN, 16));
 		BT_Dashboard.setBounds(10, 67, 189, 31);
 		Panel_Side.add(BT_Dashboard);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBounds(10, 197, 10, 37);
+		Panel_Side.add(panel_5);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				panel_5.setBackground(Color.BLUE);
+			}
+		});
+		panel_4.setBounds(20, 197, 173, 37);
+		Panel_Side.add(panel_4);
+		
+		BT_Entrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Panel_Login.setVisible(false);
+				Panel_User.setVisible(true);
+			}
+		});
+		
+		JLabel lblDashboard = new JLabel("DASHBOARD");
+		lblDashboard.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 16));
+		lblDashboard.setBounds(new Rectangle(0, 11, 0, 0));
+		lblDashboard.setAlignmentY(Component.TOP_ALIGNMENT);
+		panel_4.add(lblDashboard);
+		
+		contentPane.setVisible(true);
 	}
 }
