@@ -27,10 +27,10 @@ public class BancoDados {
 		
 	}
 	
-	public ResultSet[] ConsultarCliente(Connection con){
+	public ResultSet[] ConsultarCliente(Connection con, String nome, String doc){
 		try{
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM Cliente");
+		ResultSet rs = stmt.executeQuery("SELECT * FROM Cliente WHERE nome_cliente LIKE '%"+ nome +"%' or codigo_cliente = '"+ doc +"'");
 		
 		Statement stmt1 = con.createStatement();
 		ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm FROM Cliente");
@@ -41,8 +41,8 @@ public class BancoDados {
 		System.out.println("Consulta realizada com sucesso");
 		return result;
 		
-		}catch(Exception e){
-			
+		}catch(SQLException e){
+			e.printStackTrace();
 		}
 		return null;
 	}

@@ -291,7 +291,7 @@ public class ApplicationFrame extends JFrame {
 		JButton btnPesquisar = new JButton("PESQUISAR");
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ResultSet[] result = bd.ConsultarCliente(con);
+				ResultSet[] result = bd.ConsultarCliente(con,textField.getText(),textField_1.getText());
 				ResultSet rs = result[0];
 				ResultSet count = result[1];
 				
