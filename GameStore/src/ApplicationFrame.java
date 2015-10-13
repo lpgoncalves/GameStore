@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -37,6 +38,8 @@ import java.awt.Component;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import java.sql.*;
 
 public class ApplicationFrame extends JFrame {
 
@@ -77,6 +80,13 @@ public class ApplicationFrame extends JFrame {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		
+		String jdbc = "jdbc:sqlserver://localhost:1433;databaseName=GAMESTORE";
+		
+		BancoDados bd = new BancoDados();
+		Connection con = bd.ConectaBD(jdbc, "sa", "123456");
+		
+		bd.CriarTabela(con);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 833, 775);
@@ -279,6 +289,47 @@ public class ApplicationFrame extends JFrame {
 		Panel_User.add(textField_1);
 		
 		JButton btnPesquisar = new JButton("PESQUISAR");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ResultSet[] result = bd.ConsultarCliente(con);
+				ResultSet rs = result[0];
+				ResultSet count = result[1];
+				
+				try {
+					count.next();
+					int tm = count.getInt("tm");
+					Object[][] tabela = new Object[tm][5];
+					int i = 0;
+					while(rs.next()){
+						tabela[i][0] = rs.getInt("id_cliente");
+						tabela[i][1] = rs.getString("nome_cliente");
+						tabela[i][2] = rs.getString("codigo_cliente");
+						tabela[i][3] = rs.getString("end_cliente");
+						tabela[i][4] = rs.getString("detalhes_cliente");
+						
+						i++;
+					}
+				
+					table.setModel(new DefaultTableModel(
+							tabela,
+							new String[] {
+								"ID", "Nome", "CPF/CNPJ", "Endere\u00E7o", "Obs"
+							}
+						) {
+							Class[] columnTypes = new Class[] {
+								Object.class, Object.class, Object.class, Object.class, String.class
+							};
+							public Class getColumnClass(int columnIndex) {
+								return columnTypes[columnIndex];
+							}
+						});
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+						
+			}
+		});
 		btnPesquisar.setFont(new Font("Segoe UI Semilight", Font.BOLD, 14));
 		btnPesquisar.setForeground(new Color(51, 153, 204));
 		btnPesquisar.setBounds(336, 174, 101, 31);

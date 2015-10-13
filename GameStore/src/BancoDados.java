@@ -27,6 +27,27 @@ public class BancoDados {
 		
 	}
 	
+	public ResultSet[] ConsultarCliente(Connection con){
+		try{
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM Cliente");
+		
+		Statement stmt1 = con.createStatement();
+		ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm FROM Cliente");
+		
+		ResultSet[] result = new ResultSet[]{
+				rs, count
+		};
+		System.out.println("Consulta realizada com sucesso");
+		return result;
+		
+		}catch(Exception e){
+			
+		}
+		return null;
+	}
+	
+	
 	public void CriarTabela(Connection con){
 		try{
 		String tabela_tipo_produto = 	"CREATE TABLE Tipo_Produto" +
