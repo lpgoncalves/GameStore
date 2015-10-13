@@ -149,8 +149,9 @@ public class ApplicationFrame extends JFrame {
 		LB_Senha.setFont(new Font("Segoe WP SemiLight", Font.PLAIN, 16));
 		
 		JButton BT_Entrar = new JButton("ENTRAR");
+		BT_Entrar.setVisible(false);
 		
-		BT_Entrar.setBounds(106, 224, 238, 39);
+		BT_Entrar.setBounds(105, 282, 238, 39);
 		Panel_Login.add(BT_Entrar);
 		BT_Entrar.setBackground(new Color(51, 153, 255));
 		BT_Entrar.setForeground(new Color(51, 153, 255));
@@ -159,6 +160,28 @@ public class ApplicationFrame extends JFrame {
 		TXT_Password = new JPasswordField();
 		TXT_Password.setBounds(105, 184, 238, 30);
 		Panel_Login.add(TXT_Password);
+		
+		JPanel Panel_Entrar = new JPanel();
+		
+		Panel_Entrar.setBackground(SystemColor.textHighlight);
+		Panel_Entrar.setBounds(105, 231, 238, 40);
+		Panel_Login.add(Panel_Entrar);
+		Panel_Entrar.setLayout(null);
+		
+		JLabel LB_Entrar = new JLabel("ENTRAR");
+		LB_Entrar.setForeground(new Color(255, 255, 255));
+		LB_Entrar.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		LB_Entrar.setBounds(new Rectangle(70, 5, 79, 27));
+		LB_Entrar.setAlignmentY(0.0f);
+		Panel_Entrar.add(LB_Entrar);
+		
+		JLabel LB_ImgEntrar = new JLabel("");
+		LB_ImgEntrar.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Right Arrow-32.png"));
+		LB_ImgEntrar.setForeground(Color.WHITE);
+		LB_ImgEntrar.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		LB_ImgEntrar.setBounds(new Rectangle(196, 7, 32, 27));
+		LB_ImgEntrar.setAlignmentY(0.0f);
+		Panel_Entrar.add(LB_ImgEntrar);
 		
 		JPanel Panel_User = new JPanel();
 		Panel_Card.add(Panel_User, "name_8185795600670");
@@ -427,7 +450,22 @@ public class ApplicationFrame extends JFrame {
 		Panel_SideProducts.setBounds(0, 188, 4, 53);
 		Panel_Side.add(Panel_SideProducts);
 		
-		
+		Panel_Entrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				Panel_Entrar.setBackground(new Color(65, 105, 225));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Panel_Entrar.setBackground(SystemColor.textHighlight);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Panel_Entrar.setBackground(new Color(65, 105, 225));
+				Panel_Login.setVisible(false);
+				Panel_Side.setVisible(true);
+			}
+		});
 		
 		Panel_Dashboard.addMouseListener(new MouseAdapter() {
 			@Override
