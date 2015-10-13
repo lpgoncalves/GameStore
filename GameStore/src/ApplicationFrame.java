@@ -130,7 +130,7 @@ public class ApplicationFrame extends JFrame {
 		JLabel LB_ImgBackground = new JLabel("");
 		LB_ImgBackground.setBounds(0, 41, 786, 146);
 		contentPane.add(LB_ImgBackground);
-		LB_ImgBackground.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\GameStoreLogo-crop.png"));
+		LB_ImgBackground.setIcon(new ImageIcon("GameStoreLogo-crop.png"));
 		
 		JPanel Panel_Card = new JPanel();
 		Panel_Card.setBounds(209, 186, 570, 517);
