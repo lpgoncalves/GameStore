@@ -663,6 +663,7 @@ public class ApplicationFrame extends JFrame {
 				if (Panel_Products.isVisible()) {
 					Panel_Products.setVisible(false);
 				}
+				Panel_Home.setVisible(false);
 				Panel_Client.setVisible(true);
 			}
 		});
@@ -692,7 +693,7 @@ public class ApplicationFrame extends JFrame {
 				Panel_SideProducts.setBackground(Color.BLUE);
 				LB_Products.setForeground(Color.BLACK);
 				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
-				
+				Panel_Home.setVisible(false);
 				if (Panel_Client.isVisible()) {
 					Panel_Client.setVisible(false);
 				}
