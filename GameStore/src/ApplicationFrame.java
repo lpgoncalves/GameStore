@@ -504,10 +504,13 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar.add(Panel_Sidebar_Dashboard);
 		
 		BT_Entrar.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
-				Panel_Login.setVisible(false);
-				Panel_Sidebar.setVisible(true);
-				Panel_Client.setVisible(true);
+				if(bd.Autenticar(con, TXT_Login.getText(), TXT_Password.getText())){
+					Panel_Login.setVisible(false);
+					Panel_Sidebar.setVisible(true);
+					Panel_Client.setVisible(true);
+				}
 			}
 		});
 		Panel_Sidebar_Dashboard.setLayout(null);
