@@ -50,7 +50,9 @@ public class BancoDados {
 	public ResultSet[] ConsultarProduto(Connection con, String produto){
 		try{
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Produtos WHERE nome_produto LIKE '"+ produto +"%'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Produtos, Tipo_Produto "
+					+ "WHERE nome_produto LIKE '"+ produto +"%' AND "
+					+ "cd_tipo_produto = cd_tipo");
 			
 			Statement stmt1 = con.createStatement();
 			ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm FROM Produtos WHERE nome_produto LIKE '"+ produto +"%'"); 
@@ -88,30 +90,38 @@ public class BancoDados {
 	public void CriarTabela(Connection con){
 		try{
 		String tabela_tipo_produto = 	"CREATE TABLE Tipo_Produto" +
-				"(id_tipo int NOT NULL, " +
-				"descricao_tipo varchar(100) NOT NULL, " +
-				"PRIMARY KEY (id_tipo)) ";
+				"(cd_tipo int NOT NULL, " +
+				"descricao_tipo varchar(10) NOT NULL, " +
+				"PRIMARY KEY (cd_tipo)) ";
+		
+		String tipo_game = "INSERT INTO Tipo_Produto VALUES (1, 'Games')";
+		String tipo_console = "INSERT INTO Tipo_Produto VALUES (2, 'Consoles')";
+		String tipo_acessorio = "INSERT INTO Tipo_Produto VALUES (3, 'Acessorios')";
 		
 		String tabela_produtos = "CREATE TABLE Produtos " +
 				"(id_produto int NOT NULL, " +
 				"descricao_produto varchar(50) NOT NULL, " +
 				"nome_produto varchar(20), " + 
 				"preco_produto decimal(10,2), " +
+				"cd_tipo_produto int," +
 				"PRIMARY KEY (id_produto))"; 
 		
 		String games = "CREATE TABLE Games" +
-				"(nome_game varchar(30) NOT NULL, " +
+				"(id_produto int NOT NULL, "+
+				"nome_game varchar(30) NOT NULL, " +
 				"memory_required int, " +
 				"numero_de_pl int, " +
 				"detalhes varchar(50))";
 		
 		String console = "CREATE TABLE Consoles" +
-				"(driver_type varchar(30) NOT NULL, " +
+				"(id_produto int NOT NULL, " +
+				"driver_type varchar(30) NOT NULL, " +
 				"size int, " +
 				"detalhes_consoles varchar(50))";		
 		
 		String acessorios = "CREATE TABLE Acessorios" + 
-				"(nome_acessorio varchar(20) NOT NULL, " +
+				"(id_produto int NOT NULL, " + 
+				"nome_acessorio varchar(20) NOT NULL, " +
 				"descricao_acessorio varchar(50) ," +
 				"detalhes_acessorio varchar(50))";
 		
@@ -127,17 +137,24 @@ public class BancoDados {
 				"(id_pedido int NOT NULL, " +
 				"data_pedido date, " +
 				"detalhes_pedido varchar(50), " +
+				"id_produto int, " +
+				"id_cliente int NOT NULL, " +
 				"PRIMARY KEY(id_pedido))";
 	
 		String compras_cliente = "CREATE TABLE Compras_Cliente" +
 				"(id_compras int NOT NULL, " +
 				"data_compras date NOT NULL, " +
 				"detalhes_compras varchar(50), " +
+				"id_produto int, " +
+				"id_cliente int NOT NULL, " +
 				"PRIMARY KEY(id_compras))";
 		
 		Statement stmt = con.createStatement();
 		
 		stmt.executeUpdate(tabela_tipo_produto);
+		stmt.executeUpdate(tipo_game);
+		stmt.executeUpdate(tipo_console);
+		stmt.executeUpdate(tipo_acessorio);
 		System.out.println("Tabela Tipo_Produto criada com sucesso");
 		
 		stmt.executeUpdate(tabela_produtos);
@@ -161,8 +178,8 @@ public class BancoDados {
 		stmt.executeUpdate(compras_cliente);
 		System.out.println("Tabela compras_cliente criada com sucesso");
 		
-		}catch(Exception e){
-			System.out.println("Já existi as tabelas");;
+		}catch(SQLException e){
+			e.printStackTrace();
 		}
 	}
 }

@@ -400,10 +400,11 @@ public class ApplicationFrame extends JFrame {
 		LB_Tipo.setBounds(79, 138, 37, 24);
 		Panel_Products.add(LB_Tipo);
 		
-		TXT_Tipo = new JTextField();
-		TXT_Tipo.setColumns(10);
-		TXT_Tipo.setBounds(138, 137, 299, 33);
-		Panel_Products.add(TXT_Tipo);
+		JComboBox CB_tipoProduto_consulta = new JComboBox();
+		CB_tipoProduto_consulta.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		CB_tipoProduto_consulta.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM TIPO", "JOGO", "CONSOLE", "ACESS\u00D3RIO"}));
+		CB_tipoProduto_consulta.setBounds(138, 137, 299, 33);
+		Panel_Products.add(CB_tipoProduto_consulta);
 		
 		JButton button = new JButton("PESQUISAR");
 		button.addActionListener(new ActionListener() {
@@ -421,7 +422,7 @@ public class ApplicationFrame extends JFrame {
 					while(rs.next()){
 						tabela[i][0] = rs.getInt("id_produto");
 						tabela[i][1] = rs.getString("nome_produto");
-						tabela[i][2] = null;
+						tabela[i][2] = rs.getString("descricao_tipo");;
 						tabela[i][3] = rs.getString("descricao_produto");
 						tabela[i][4] = rs.getBigDecimal("preco_produto");
 						
