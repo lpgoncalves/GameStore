@@ -50,6 +50,7 @@ import javax.swing.JRadioButton;
 import java.awt.TextArea;
 import java.awt.ScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
@@ -58,6 +59,12 @@ import javax.swing.DefaultComboBoxModel;
 public class ApplicationFrame extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel Panel_Client;
+	private JPanel Panel_Products;
+	private JPanel Panel_Login;
+	private JPanel Panel_Home;
+	private JPanel Panel_Add_Product;
+	private JPanel Panel_Edit_Product;
 	private JTextField TXT_Login;
 	private JPasswordField TXT_Password;
 	private JTable table;
@@ -69,6 +76,7 @@ public class ApplicationFrame extends JFrame {
 	private Object[][] tabelaArray; 
 	private JTextField TXT_ProductName;
 	private JTextField TXT_Edit_Name;
+	private BancoDados bd;
 
 	/**
 	 * Launch the application.
@@ -104,9 +112,9 @@ public class ApplicationFrame extends JFrame {
 		
 		String jdbc = "jdbc:sqlserver://localhost:1433;databaseName=GAMESTORE";
 		
-		BancoDados bd = new BancoDados();
-		Connection con = bd.ConectaBD(jdbc, "sa", "123456");
-
+		bd = new BancoDados();
+		bd.ConectaBD(jdbc, "sa", "123456");
+		
 		tabelaArray = new Object[9][5];
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -136,7 +144,7 @@ public class ApplicationFrame extends JFrame {
 		JMenuItem mntmAtualizar = new JMenuItem("Criar Tabelas");
 		mntmAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				bd.CriarTabela(con);
+				bd.CriarTabela();
 			}
 		});
 		mnLogin.add(mntmAtualizar);
@@ -151,7 +159,7 @@ public class ApplicationFrame extends JFrame {
 		contentPane.add(Panel_Card);
 		Panel_Card.setLayout(new CardLayout(0, 0));
 		
-		JPanel Panel_Login = new JPanel();
+		Panel_Login = new JPanel();
 		Panel_Card.add(Panel_Login, "name_7725914845621");
 		Panel_Login.setLayout(null);
 		
@@ -208,7 +216,7 @@ public class ApplicationFrame extends JFrame {
 		LB_ImgEntrar.setAlignmentY(0.0f);
 		Panel_Entrar.add(LB_ImgEntrar);
 		
-		JPanel Panel_Client = new JPanel();
+		Panel_Client = new JPanel();
 		Panel_Card.add(Panel_Client, "name_8185795600670");
 		Panel_Client.setLayout(null);
 		
@@ -269,7 +277,7 @@ public class ApplicationFrame extends JFrame {
 		JButton BT_Pesquisar = new JButton("PESQUISAR");
 		BT_Pesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ResultSet[] result = bd.ConsultarCliente(con,TXT_Name.getText(),TXT_Doc.getText());
+				ResultSet[] result = bd.ConsultarCliente(TXT_Name.getText(),TXT_Doc.getText());
 				ResultSet rs = result[0];
 				ResultSet count = result[1];
 				
@@ -307,11 +315,11 @@ public class ApplicationFrame extends JFrame {
 		BT_Pesquisar.setBounds(336, 174, 101, 31);
 		Panel_Client.add(BT_Pesquisar);
 		
-		JPanel Panel_Home = new JPanel();
+		Panel_Home = new JPanel();
 		Panel_Card.add(Panel_Home, "name_28471731239464");
 		Panel_Home.setLayout(null);
 		
-		JPanel Panel_Products = new JPanel();
+		Panel_Products = new JPanel();
 		Panel_Card.add(Panel_Products, "name_30175098231902");
 		Panel_Products.setLayout(null);
 		
@@ -401,16 +409,13 @@ public class ApplicationFrame extends JFrame {
 		LB_Tipo.setBounds(79, 138, 37, 24);
 		Panel_Products.add(LB_Tipo);
 		
-		JComboBox CB_tipoProduto_consulta = new JComboBox();
-		CB_tipoProduto_consulta.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		CB_tipoProduto_consulta.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM TIPO", "JOGO", "CONSOLE", "ACESS\u00D3RIO"}));
-		CB_tipoProduto_consulta.setBounds(138, 137, 299, 33);
-		Panel_Products.add(CB_tipoProduto_consulta);
+		JComboBox CB_tipo_produto = ComboBox_Tipo(138, 137, 299, 33);
+		Panel_Products.add(CB_tipo_produto);
 		
 		JButton button = new JButton("PESQUISAR");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ResultSet[] result = bd.ConsultarProduto(con,TXT_Product.getText());
+				ResultSet[] result = bd.ConsultarProduto(TXT_Product.getText(), CB_tipo_produto.getSelectedItem());
 				ResultSet rs = result[0];
 				ResultSet count = result[1];
 				
@@ -423,7 +428,7 @@ public class ApplicationFrame extends JFrame {
 					while(rs.next()){
 						tabela[i][0] = rs.getInt("id_produto");
 						tabela[i][1] = rs.getString("nome_produto");
-						tabela[i][2] = rs.getString("descricao_tipo");;
+						tabela[i][2] = rs.getString("descricao_tipo");
 						tabela[i][3] = rs.getString("descricao_produto");
 						tabela[i][4] = rs.getBigDecimal("preco_produto");
 						
@@ -466,7 +471,7 @@ public class ApplicationFrame extends JFrame {
 		JPanel Panel_Dashboard = new JPanel();
 		Panel_Card.add(Panel_Dashboard, "name_30922889312389");
 		
-		JPanel Panel_Add_Product = new JPanel();
+		Panel_Add_Product = new JPanel();
 		Panel_Card.add(Panel_Add_Product, "name_6273018122703");
 		Panel_Add_Product.setLayout(null);
 		
@@ -512,7 +517,7 @@ public class ApplicationFrame extends JFrame {
 		LB_ProductPrice.setBounds(67, 296, 211, 22);
 		Panel_Add_Product.add(LB_ProductPrice);
 		
-		JSpinner Spinner_ProductPrice = new JSpinner();
+		JTextField Spinner_ProductPrice = new JTextField();
 		Spinner_ProductPrice.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		Spinner_ProductPrice.setBounds(67, 321, 441, 29);
 		Panel_Add_Product.add(Spinner_ProductPrice);
@@ -524,10 +529,7 @@ public class ApplicationFrame extends JFrame {
 		LB_Type.setBounds(67, 59, 211, 22);
 		Panel_Add_Product.add(LB_Type);
 		
-		JComboBox ComboBox_ProductType = new JComboBox();
-		ComboBox_ProductType.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		ComboBox_ProductType.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM TIPO", "JOGO", "CONSOLE", "ACESS\u00D3RIO"}));
-		ComboBox_ProductType.setBounds(67, 81, 441, 30);
+		JComboBox ComboBox_ProductType = ComboBox_Tipo(67, 81, 441, 30);
 		Panel_Add_Product.add(ComboBox_ProductType);
 		
 		JPanel Panel_ProductAdd = new JPanel();
@@ -544,7 +546,7 @@ public class ApplicationFrame extends JFrame {
 		LB_Add_Product.setAlignmentY(Component.TOP_ALIGNMENT);
 		Panel_ProductAdd.add(LB_Add_Product);
 		
-		JPanel Panel_Edit_Product = new JPanel();
+		Panel_Edit_Product = new JPanel();
 		Panel_Edit_Product.setLayout(null);
 		Panel_Card.add(Panel_Edit_Product, "name_8504224837584");
 		
@@ -602,10 +604,7 @@ public class ApplicationFrame extends JFrame {
 		LB_Edit_Type.setBounds(67, 59, 211, 22);
 		Panel_Edit_Product.add(LB_Edit_Type);
 		
-		JComboBox ComboBox_Edit_Product = new JComboBox();
-		ComboBox_Edit_Product.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM TIPO", "JOGO", "CONSOLE", "ACESS\u00D3RIO"}));
-		ComboBox_Edit_Product.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		ComboBox_Edit_Product.setBounds(67, 81, 441, 30);
+		JComboBox ComboBox_Edit_Product = ComboBox_Tipo(67, 81, 441, 30);
 		Panel_Edit_Product.add(ComboBox_Edit_Product);
 		
 		JPanel Panel_BT_Edit_Product = new JPanel();
@@ -642,7 +641,7 @@ public class ApplicationFrame extends JFrame {
 		BT_Entrar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
-				if(bd.Autenticar(con, TXT_Login.getText(), TXT_Password.getText())){
+				if(bd.Autenticar(TXT_Login.getText(), TXT_Password.getText())){
 					Panel_Login.setVisible(false);
 					Panel_Sidebar.setVisible(true);
 					Panel_Client.setVisible(true);
@@ -782,11 +781,7 @@ public class ApplicationFrame extends JFrame {
 				Panel_SideCustomers.setBackground(SystemColor.textHighlight);
 				LB_Customers.setForeground(Color.BLACK);
 				LB_Customers.setFont(LB_Customers.getFont().deriveFont(Font.BOLD));
-				if (Panel_Products.isVisible()) {
-					Panel_Products.setVisible(false);
-				}
-				Panel_Home.setVisible(false);
-				Panel_Client.setVisible(true);
+				TrocaDeTela(Panel_Client);
 			}
 		});
 		
@@ -815,11 +810,7 @@ public class ApplicationFrame extends JFrame {
 				Panel_SideProducts.setBackground(SystemColor.textHighlight);
 				LB_Products.setForeground(Color.BLACK);
 				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
-				Panel_Home.setVisible(false);
-				if (Panel_Client.isVisible()) {
-					Panel_Client.setVisible(false);
-				}
-				Panel_Products.setVisible(true);
+				TrocaDeTela(Panel_Products);
 				
 			}
 		});
@@ -835,7 +826,15 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				//TO DO
+				try{
+				double value = Double.parseDouble(Spinner_ProductPrice.getText());
+				bd.InserirProduto(TXT_ProductName.getText(), TXTArea_ProductDescription.getText(), value, ComboBox_ProductType.getSelectedIndex());
+				TXT_ProductName.setText("");
+				TXTArea_ProductDescription.setText("");
+				Spinner_ProductPrice.setText("");
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 		});
 		
@@ -850,7 +849,7 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				//TO DO
+				TrocaDeTela(Panel_Edit_Product);
 			}
 		});
 		
@@ -865,8 +864,7 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Panel_Products.setVisible(false);
-				Panel_Add_Product.setVisible(true);
+				TrocaDeTela(Panel_Add_Product);
 			}
 		});
 		
@@ -881,8 +879,7 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Panel_Products.setVisible(false);
-				Panel_Edit_Product.setVisible(true);
+				TrocaDeTela(Panel_Edit_Product);
 			}
 		});
 		
@@ -902,5 +899,30 @@ public class ApplicationFrame extends JFrame {
 		});
 		
 		contentPane.setVisible(true);
+	}
+	
+	public void TrocaDeTela(JPanel panel){
+		Panel_Client.setVisible(false);
+		Panel_Products.setVisible(false);
+		Panel_Add_Product.setVisible(false);
+		Panel_Edit_Product.setVisible(false);
+		Panel_Home.setVisible(false);
+		
+		panel.setVisible(true);
+
+	}
+	
+	public JComboBox ComboBox_Tipo(int x, int y, int width, int height){
+		ResultSet rs = bd.ConsultarTipoProduto();
+		
+		JComboBox ComboBox = new JComboBox();
+		ComboBox.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		try{
+		while(rs.next()) ComboBox.addItem(rs.getString(2));
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		ComboBox.setBounds(x,y,width,height);	
+		return ComboBox;
 	}
 }

@@ -4,30 +4,31 @@ import java.sql.SQLException;
 import java.sql.*;
 
 public class BancoDados {
+	private Connection con;
 	public BancoDados(){
 		
 	}
 	
-	public Connection ConectaBD(String connectUrl, String user, String senha) {
+	public void ConectaBD(String connectUrl, String user, String senha) {
 		
 		try{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-			Connection con = DriverManager.getConnection(connectUrl, user, senha);
+			con = DriverManager.getConnection(connectUrl, user, senha);
 			System.out.println("Conexão Realizada com sucesso");
 
-			return con;
+		
 			
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
-			return null;
+			
 		} catch (Exception e){
 			System.out.println("Não foi possivel conectar" + e);
-			return null;
+			
 		}
 		
 	}
 	
-	public ResultSet[] ConsultarCliente(Connection con, String nome, String doc){
+	public ResultSet[] ConsultarCliente(String nome, String doc){
 		try{
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Cliente WHERE nome_cliente LIKE '"+ nome +"%' or codigo_cliente = '"+ doc +"'");
@@ -47,12 +48,14 @@ public class BancoDados {
 		return null;
 	}
 	
-	public ResultSet[] ConsultarProduto(Connection con, String produto){
+	public ResultSet[] ConsultarProduto(String produto, Object tipo){
 		try{
 			Statement stmt = con.createStatement();
+			
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Produtos, Tipo_Produto "
 					+ "WHERE nome_produto LIKE '"+ produto +"%' AND "
-					+ "cd_tipo_produto = cd_tipo");
+					+ "cd_tipo_produto = cd_tipo AND "
+					+ "descricao_tipo = '"+ tipo +"'");
 			
 			Statement stmt1 = con.createStatement();
 			ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm FROM Produtos WHERE nome_produto LIKE '"+ produto +"%'"); 
@@ -61,7 +64,7 @@ public class BancoDados {
 				rs, count	
 			};
 			
-			System.out.println("Consulta realizada com sucesso");
+			System.out.println("Consulta realizada com sucesso" + produto);
 			return result;
 			
 		}catch(SQLException e){
@@ -70,7 +73,19 @@ public class BancoDados {
 		return null;
 	}
 	
-	public boolean Autenticar(Connection con, String login, String senha){
+	public ResultSet ConsultarTipoProduto(){
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Tipo_Produto");
+			
+			return rs;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public boolean Autenticar(String login, String senha){
 		try{
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios WHERE login='"+login+"' AND senha='"+senha+"'");
@@ -86,8 +101,19 @@ public class BancoDados {
 		return false;
 	}
 	
+	public void InserirProduto(String nome, String descricao, double preco, int cd_tipo){
+		try{
+			cd_tipo++;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("INSERT INTO Produtos(descricao_produto, nome_produto, preco_produto, cd_tipo_produto) "
+					+ "VALUES ('"+descricao+"', '"+nome+"', "+preco+", "+cd_tipo+")");			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
 	
-	public void CriarTabela(Connection con){
+	
+	public void CriarTabela(){
 		try{
 		String tabela_tipo_produto = 	"CREATE TABLE Tipo_Produto" +
 				"(cd_tipo int NOT NULL, " +
@@ -99,7 +125,7 @@ public class BancoDados {
 		String tipo_acessorio = "INSERT INTO Tipo_Produto VALUES (3, 'Acessorios')";
 		
 		String tabela_produtos = "CREATE TABLE Produtos " +
-				"(id_produto int NOT NULL, " +
+				"(id_produto int IDENTITY(1,1) NOT NULL , " +
 				"descricao_produto varchar(50) NOT NULL, " +
 				"nome_produto varchar(20), " + 
 				"preco_produto decimal(10,2), " +
@@ -126,7 +152,7 @@ public class BancoDados {
 				"detalhes_acessorio varchar(50))";
 		
 		String cliente = "CREATE TABLE Cliente" +
-				"(id_cliente int NOT NULL, " +
+				"(id_cliente int IDENTITY(1,1) NOT NULL, " +
 				"codigo_cliente varchar(15) NOT NULL, " +
 				"nome_cliente varchar(20), " +
 				"end_cliente varchar(20), " +
@@ -134,7 +160,7 @@ public class BancoDados {
 				"PRIMARY KEY (id_cliente))";
 		
 		String pedido_cliente = "CREATE TABLE Pedido_Cliente" +
-				"(id_pedido int NOT NULL, " +
+				"(id_pedido int IDENTITY(1,1) NOT NULL, " +
 				"data_pedido date, " +
 				"detalhes_pedido varchar(50), " +
 				"id_produto int, " +
@@ -142,7 +168,7 @@ public class BancoDados {
 				"PRIMARY KEY(id_pedido))";
 	
 		String compras_cliente = "CREATE TABLE Compras_Cliente" +
-				"(id_compras int NOT NULL, " +
+				"(id_compras int IDENTITY(1,1) NOT NULL, " +
 				"data_compras date NOT NULL, " +
 				"detalhes_compras varchar(50), " +
 				"id_produto int, " +
