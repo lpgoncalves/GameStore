@@ -29,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 
+
 import javax.swing.border.CompoundBorder;
 import javax.swing.JScrollPane;
 import java.awt.Button;
@@ -43,6 +44,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import java.sql.*;
+import javax.swing.JToggleButton;
+import javax.swing.JSlider;
+import javax.swing.JRadioButton;
+import java.awt.TextArea;
+import java.awt.ScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextArea;
+import javax.swing.JSpinner;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class ApplicationFrame extends JFrame {
 
@@ -52,10 +63,12 @@ public class ApplicationFrame extends JFrame {
 	private JTable table;
 	private JTextField TXT_Name;
 	private JTextField TXT_Doc;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField TXT_Product;
+	private JTextField TXT_Tipo;
 	private JTable Table_Product;
 	private Object[][] tabelaArray; 
+	private JTextField TXT_ProductName;
+	private JTextField TXT_Edit_Name;
 
 	/**
 	 * Launch the application.
@@ -130,7 +143,7 @@ public class ApplicationFrame extends JFrame {
 		JLabel LB_ImgBackground = new JLabel("");
 		LB_ImgBackground.setBounds(0, 41, 786, 146);
 		contentPane.add(LB_ImgBackground);
-		LB_ImgBackground.setIcon(new ImageIcon("GameStoreLogo-crop.png"));
+		LB_ImgBackground.setIcon(new ImageIcon("Images\\GameStoreLogo-crop.png"));
 		
 		JPanel Panel_Card = new JPanel();
 		Panel_Card.setBounds(209, 186, 570, 517);
@@ -187,7 +200,7 @@ public class ApplicationFrame extends JFrame {
 		Panel_Entrar.add(LB_Entrar);
 		
 		JLabel LB_ImgEntrar = new JLabel("");
-		LB_ImgEntrar.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Right Arrow-32.png"));
+		LB_ImgEntrar.setIcon(new ImageIcon("Images\\Right Arrow-32.png"));
 		LB_ImgEntrar.setForeground(Color.WHITE);
 		LB_ImgEntrar.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		LB_ImgEntrar.setBounds(new Rectangle(196, 7, 32, 27));
@@ -229,65 +242,11 @@ public class ApplicationFrame extends JFrame {
 		Panel_Client.add(Panel_Top);
 		Panel_Top.setLayout(null);
 		
-		JPanel Panel_Add = new JPanel();
-		Panel_Add.setBackground(new Color(102, 102, 102));
-		Panel_Add.setBounds(0, 0, 136, 39);
-		Panel_Top.add(Panel_Add);
-		Panel_Add.setLayout(null);
-		
-		JLabel LB_Add = new JLabel("ADICIONAR");
-		LB_Add.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
-		LB_Add.setForeground(new Color(255, 255, 255));
-		LB_Add.setBounds(45, 13, 91, 14);
-		Panel_Add.add(LB_Add);
-		
-		JLabel LB_imgAdd = new JLabel("");
-		LB_imgAdd.setVerticalAlignment(SwingConstants.BOTTOM);
-		LB_imgAdd.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Plus Math-26.png"));
-		LB_imgAdd.setForeground(Color.WHITE);
-		LB_imgAdd.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
-		LB_imgAdd.setBounds(10, 0, 30, 33);
-		Panel_Add.add(LB_imgAdd);
-		
-		JPanel Panel_Edit = new JPanel();
-		Panel_Edit.setLayout(null);
-		Panel_Edit.setBackground(new Color(102, 102, 102));
-		Panel_Edit.setBounds(134, 0, 136, 39);
-		Panel_Top.add(Panel_Edit);
-		
-		JLabel LB_Edit = new JLabel("EDITAR");
-		LB_Edit.setForeground(Color.WHITE);
-		LB_Edit.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
-		LB_Edit.setBounds(45, 13, 91, 14);
-		Panel_Edit.add(LB_Edit);
-		
-		JLabel LB_ImgEdit = new JLabel("");
-		LB_ImgEdit.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Edit-26.png"));
-		LB_ImgEdit.setVerticalAlignment(SwingConstants.BOTTOM);
-		LB_ImgEdit.setForeground(Color.WHITE);
-		LB_ImgEdit.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
-		LB_ImgEdit.setBounds(10, 0, 30, 33);
-		Panel_Edit.add(LB_ImgEdit);
-		
-		JPanel Panel_Delete = new JPanel();
-		Panel_Delete.setLayout(null);
-		Panel_Delete.setBackground(new Color(102, 102, 102));
-		Panel_Delete.setBounds(271, 0, 136, 39);
-		Panel_Top.add(Panel_Delete);
-		
-		JLabel LB_Delete = new JLabel("EXCLUIR");
-		LB_Delete.setForeground(Color.WHITE);
-		LB_Delete.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
-		LB_Delete.setBounds(45, 13, 91, 14);
-		Panel_Delete.add(LB_Delete);
-		
-		JLabel LB_ImgDelete = new JLabel("");
-		LB_ImgDelete.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Delete-26.png"));
-		LB_ImgDelete.setVerticalAlignment(SwingConstants.BOTTOM);
-		LB_ImgDelete.setForeground(Color.WHITE);
-		LB_ImgDelete.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
-		LB_ImgDelete.setBounds(10, 0, 30, 33);
-		Panel_Delete.add(LB_ImgDelete);
+		JLabel lblConsultaProduto = new JLabel("CONSULTA CLIENTE");
+		lblConsultaProduto.setForeground(Color.WHITE);
+		lblConsultaProduto.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		lblConsultaProduto.setBounds(180, 4, 216, 28);
+		Panel_Top.add(lblConsultaProduto);
 		
 		JLabel LB_Name = new JLabel("NOME");
 		LB_Name.setForeground(new Color(0, 153, 255));
@@ -355,96 +314,101 @@ public class ApplicationFrame extends JFrame {
 		Panel_Card.add(Panel_Products, "name_30175098231902");
 		Panel_Products.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(138, 93, 299, 33);
-		Panel_Products.add(textField);
+		TXT_Product = new JTextField();
+		TXT_Product.setColumns(10);
+		TXT_Product.setBounds(138, 93, 299, 33);
+		Panel_Products.add(TXT_Product);
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(new Color(102, 102, 102));
-		panel.setBounds(0, 0, 570, 39);
-		Panel_Products.add(panel);
+		JPanel Panel_ProductActions = new JPanel();
+		Panel_ProductActions.setLayout(null);
+		Panel_ProductActions.setBackground(new Color(102, 102, 102));
+		Panel_ProductActions.setBounds(0, 0, 570, 39);
+		Panel_Products.add(Panel_ProductActions);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setBackground(new Color(102, 102, 102));
-		panel_1.setBounds(0, 0, 136, 39);
-		panel.add(panel_1);
+		JPanel Panel_BT_Add_Products = new JPanel();
+		
+		Panel_BT_Add_Products.setLayout(null);
+		Panel_BT_Add_Products.setBackground(new Color(102, 102, 102));
+		Panel_BT_Add_Products.setBounds(0, 0, 136, 39);
+		Panel_ProductActions.add(Panel_BT_Add_Products);
 		
 		JLabel label = new JLabel("ADICIONAR");
 		label.setForeground(Color.WHITE);
 		label.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
 		label.setBounds(45, 13, 91, 14);
-		panel_1.add(label);
+		Panel_BT_Add_Products.add(label);
 		
 		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Plus Math-26.png"));
+		label_1.setIcon(new ImageIcon("Images\\Plus Math-26.png"));
 		label_1.setVerticalAlignment(SwingConstants.BOTTOM);
 		label_1.setForeground(Color.WHITE);
 		label_1.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
 		label_1.setBounds(10, 0, 30, 33);
-		panel_1.add(label_1);
+		Panel_BT_Add_Products.add(label_1);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setLayout(null);
-		panel_2.setBackground(new Color(102, 102, 102));
-		panel_2.setBounds(134, 0, 136, 39);
-		panel.add(panel_2);
+		JPanel Panel_BT_Edit_Products = new JPanel();
+		
+		Panel_BT_Edit_Products.setLayout(null);
+		Panel_BT_Edit_Products.setBackground(new Color(102, 102, 102));
+		Panel_BT_Edit_Products.setBounds(134, 0, 136, 39);
+		Panel_ProductActions.add(Panel_BT_Edit_Products);
 		
 		JLabel label_2 = new JLabel("EDITAR");
 		label_2.setForeground(Color.WHITE);
 		label_2.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
 		label_2.setBounds(45, 13, 91, 14);
-		panel_2.add(label_2);
+		Panel_BT_Edit_Products.add(label_2);
 		
 		JLabel label_3 = new JLabel("");
+		label_3.setIcon(new ImageIcon("Images\\Edit-26.png"));
 		label_3.setVerticalAlignment(SwingConstants.BOTTOM);
 		label_3.setForeground(Color.WHITE);
 		label_3.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
 		label_3.setBounds(10, 0, 30, 33);
-		panel_2.add(label_3);
+		Panel_BT_Edit_Products.add(label_3);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setLayout(null);
-		panel_3.setBackground(new Color(102, 102, 102));
-		panel_3.setBounds(271, 0, 136, 39);
-		panel.add(panel_3);
+		JPanel Panel_BT_Delete_Products = new JPanel();
+		
+		Panel_BT_Delete_Products.setLayout(null);
+		Panel_BT_Delete_Products.setBackground(new Color(102, 102, 102));
+		Panel_BT_Delete_Products.setBounds(271, 0, 136, 39);
+		Panel_ProductActions.add(Panel_BT_Delete_Products);
 		
 		JLabel label_4 = new JLabel("EXCLUIR");
 		label_4.setForeground(Color.WHITE);
 		label_4.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
 		label_4.setBounds(45, 13, 91, 14);
-		panel_3.add(label_4);
+		Panel_BT_Delete_Products.add(label_4);
 		
 		JLabel label_5 = new JLabel("");
+		label_5.setIcon(new ImageIcon("Images\\Delete-26.png"));
 		label_5.setVerticalAlignment(SwingConstants.BOTTOM);
 		label_5.setForeground(Color.WHITE);
 		label_5.setFont(new Font("Segoe UI Semilight", Font.BOLD, 13));
 		label_5.setBounds(10, 0, 30, 33);
-		panel_3.add(label_5);
+		Panel_BT_Delete_Products.add(label_5);
 		
-		JLabel lblProduto = new JLabel("PRODUTO");
-		lblProduto.setForeground(new Color(0, 153, 255));
-		lblProduto.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
-		lblProduto.setBounds(36, 102, 91, 14);
-		Panel_Products.add(lblProduto);
+		JLabel LB_Product = new JLabel("PRODUTO");
+		LB_Product.setForeground(new Color(0, 153, 255));
+		LB_Product.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		LB_Product.setBounds(36, 102, 91, 14);
+		Panel_Products.add(LB_Product);
 		
-		JLabel lblMarca = new JLabel("TIPO");
-		lblMarca.setForeground(new Color(0, 153, 255));
-		lblMarca.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
-		lblMarca.setBounds(79, 138, 37, 24);
-		Panel_Products.add(lblMarca);
+		JLabel LB_Tipo = new JLabel("TIPO");
+		LB_Tipo.setForeground(new Color(0, 153, 255));
+		LB_Tipo.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		LB_Tipo.setBounds(79, 138, 37, 24);
+		Panel_Products.add(LB_Tipo);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(138, 137, 299, 33);
-		Panel_Products.add(textField_1);
+		TXT_Tipo = new JTextField();
+		TXT_Tipo.setColumns(10);
+		TXT_Tipo.setBounds(138, 137, 299, 33);
+		Panel_Products.add(TXT_Tipo);
 		
 		JButton button = new JButton("PESQUISAR");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ResultSet[] result = bd.ConsultarProduto(con,textField.getText());
+				ResultSet[] result = bd.ConsultarProduto(con,TXT_Product.getText());
 				ResultSet rs = result[0];
 				ResultSet count = result[1];
 				
@@ -500,6 +464,162 @@ public class ApplicationFrame extends JFrame {
 		JPanel Panel_Dashboard = new JPanel();
 		Panel_Card.add(Panel_Dashboard, "name_30922889312389");
 		
+		JPanel Panel_Add_Product = new JPanel();
+		Panel_Card.add(Panel_Add_Product, "name_6273018122703");
+		Panel_Add_Product.setLayout(null);
+		
+		JPanel Panel_Top_Add = new JPanel();
+		Panel_Top_Add.setBounds(0, 0, 570, 39);
+		Panel_Top_Add.setLayout(null);
+		Panel_Top_Add.setBackground(new Color(102, 102, 102));
+		Panel_Add_Product.add(Panel_Top_Add);
+		
+		JLabel LB_Adicionar_Cliente = new JLabel("ADICIONAR PRODUTO");
+		LB_Adicionar_Cliente.setBounds(224, 5, 216, 28);
+		Panel_Top_Add.add(LB_Adicionar_Cliente);
+		LB_Adicionar_Cliente.setForeground(Color.WHITE);
+		LB_Adicionar_Cliente.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		
+		TXT_ProductName = new JTextField();
+		TXT_ProductName.setBounds(67, 149, 441, 30);
+		Panel_Add_Product.add(TXT_ProductName);
+		TXT_ProductName.setColumns(10);
+		
+		JLabel LB_ProductName = new JLabel("NOME");
+		LB_ProductName.setBounds(67, 129, 211, 22);
+		LB_ProductName.setForeground(SystemColor.textHighlight);
+		LB_ProductName.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		LB_ProductName.setAlignmentY(0.0f);
+		Panel_Add_Product.add(LB_ProductName);
+		
+		JLabel LB_ProductDescription = new JLabel("DESCRI\u00C7\u00C3O");
+		LB_ProductDescription.setBounds(67, 190, 211, 22);
+		LB_ProductDescription.setForeground(SystemColor.textHighlight);
+		LB_ProductDescription.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		LB_ProductDescription.setAlignmentY(0.0f);
+		Panel_Add_Product.add(LB_ProductDescription);
+		
+		JTextArea TXTArea_ProductDescription = new JTextArea();
+		TXTArea_ProductDescription.setBounds(67, 213, 441, 72);
+		Panel_Add_Product.add(TXTArea_ProductDescription);
+		
+		JLabel LB_ProductPrice = new JLabel("PRE\u00C7O");
+		LB_ProductPrice.setForeground(SystemColor.textHighlight);
+		LB_ProductPrice.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		LB_ProductPrice.setAlignmentY(0.0f);
+		LB_ProductPrice.setBounds(67, 296, 211, 22);
+		Panel_Add_Product.add(LB_ProductPrice);
+		
+		JSpinner Spinner_ProductPrice = new JSpinner();
+		Spinner_ProductPrice.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		Spinner_ProductPrice.setBounds(67, 321, 441, 29);
+		Panel_Add_Product.add(Spinner_ProductPrice);
+		
+		JLabel LB_Type = new JLabel("TIPO");
+		LB_Type.setForeground(SystemColor.textHighlight);
+		LB_Type.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		LB_Type.setAlignmentY(0.0f);
+		LB_Type.setBounds(67, 59, 211, 22);
+		Panel_Add_Product.add(LB_Type);
+		
+		JComboBox ComboBox_ProductType = new JComboBox();
+		ComboBox_ProductType.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		ComboBox_ProductType.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM TIPO", "JOGO", "CONSOLE", "ACESS\u00D3RIO"}));
+		ComboBox_ProductType.setBounds(67, 81, 441, 30);
+		Panel_Add_Product.add(ComboBox_ProductType);
+		
+		JPanel Panel_ProductAdd = new JPanel();
+		
+		Panel_ProductAdd.setBackground(SystemColor.textHighlight);
+		Panel_ProductAdd.setBounds(67, 367, 441, 39);
+		Panel_Add_Product.add(Panel_ProductAdd);
+		Panel_ProductAdd.setLayout(null);
+		
+		JLabel LB_Add_Product = new JLabel("ADICIONAR");
+		LB_Add_Product.setBounds(172, 7, 95, 24);
+		LB_Add_Product.setForeground(Color.WHITE);
+		LB_Add_Product.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		LB_Add_Product.setAlignmentY(Component.TOP_ALIGNMENT);
+		Panel_ProductAdd.add(LB_Add_Product);
+		
+		JPanel Panel_Edit_Product = new JPanel();
+		Panel_Edit_Product.setLayout(null);
+		Panel_Card.add(Panel_Edit_Product, "name_8504224837584");
+		
+		JPanel Panel_Edit_Top = new JPanel();
+		Panel_Edit_Top.setLayout(null);
+		Panel_Edit_Top.setBackground(new Color(102, 102, 102));
+		Panel_Edit_Top.setBounds(0, 0, 570, 39);
+		Panel_Edit_Product.add(Panel_Edit_Top);
+		
+		JLabel lblEditarProduto = new JLabel("EDITAR PRODUTO");
+		lblEditarProduto.setForeground(Color.WHITE);
+		lblEditarProduto.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		lblEditarProduto.setBounds(224, 5, 216, 28);
+		Panel_Edit_Top.add(lblEditarProduto);
+		
+		TXT_Edit_Name = new JTextField();
+		TXT_Edit_Name.setColumns(10);
+		TXT_Edit_Name.setBounds(67, 149, 441, 30);
+		Panel_Edit_Product.add(TXT_Edit_Name);
+		
+		JLabel LB_Edit_Name = new JLabel("NOME");
+		LB_Edit_Name.setForeground(SystemColor.textHighlight);
+		LB_Edit_Name.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		LB_Edit_Name.setAlignmentY(0.0f);
+		LB_Edit_Name.setBounds(67, 129, 211, 22);
+		Panel_Edit_Product.add(LB_Edit_Name);
+		
+		JLabel LB_Edit_Description = new JLabel("DESCRI\u00C7\u00C3O");
+		LB_Edit_Description.setForeground(SystemColor.textHighlight);
+		LB_Edit_Description.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		LB_Edit_Description.setAlignmentY(0.0f);
+		LB_Edit_Description.setBounds(67, 190, 211, 22);
+		Panel_Edit_Product.add(LB_Edit_Description);
+		
+		JTextArea TXTA_Edit_TextArea = new JTextArea();
+		TXTA_Edit_TextArea.setBounds(67, 213, 441, 72);
+		Panel_Edit_Product.add(TXTA_Edit_TextArea);
+		
+		JLabel LB_Edit_Price = new JLabel("PRE\u00C7O");
+		LB_Edit_Price.setForeground(SystemColor.textHighlight);
+		LB_Edit_Price.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		LB_Edit_Price.setAlignmentY(0.0f);
+		LB_Edit_Price.setBounds(67, 296, 211, 22);
+		Panel_Edit_Product.add(LB_Edit_Price);
+		
+		JSpinner Spinner_Edit_Price = new JSpinner();
+		Spinner_Edit_Price.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		Spinner_Edit_Price.setBounds(67, 321, 441, 29);
+		Panel_Edit_Product.add(Spinner_Edit_Price);
+		
+		JLabel LB_Edit_Type = new JLabel("TIPO");
+		LB_Edit_Type.setForeground(SystemColor.textHighlight);
+		LB_Edit_Type.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		LB_Edit_Type.setAlignmentY(0.0f);
+		LB_Edit_Type.setBounds(67, 59, 211, 22);
+		Panel_Edit_Product.add(LB_Edit_Type);
+		
+		JComboBox ComboBox_Edit_Product = new JComboBox();
+		ComboBox_Edit_Product.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM TIPO", "JOGO", "CONSOLE", "ACESS\u00D3RIO"}));
+		ComboBox_Edit_Product.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		ComboBox_Edit_Product.setBounds(67, 81, 441, 30);
+		Panel_Edit_Product.add(ComboBox_Edit_Product);
+		
+		JPanel Panel_BT_Edit_Product = new JPanel();
+		
+		Panel_BT_Edit_Product.setLayout(null);
+		Panel_BT_Edit_Product.setBackground(SystemColor.textHighlight);
+		Panel_BT_Edit_Product.setBounds(67, 367, 441, 39);
+		Panel_Edit_Product.add(Panel_BT_Edit_Product);
+		
+		JLabel lblEditar = new JLabel("EDITAR");
+		lblEditar.setForeground(Color.WHITE);
+		lblEditar.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		lblEditar.setAlignmentY(0.0f);
+		lblEditar.setBounds(172, 7, 95, 24);
+		Panel_BT_Edit_Product.add(lblEditar);
+		
 		JPanel Panel_Sidebar = new JPanel();
 		Panel_Sidebar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		Panel_Sidebar.setVisible(false);
@@ -537,7 +657,7 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar_Dashboard.add(LB_Dashboard);
 		
 		JLabel LB_ImgDashboard = new JLabel("");
-		LB_ImgDashboard.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Dashboard Filled-32.png"));
+		LB_ImgDashboard.setIcon(new ImageIcon("Images\\Dashboard Filled-32.png"));
 		LB_ImgDashboard.setBounds(0, 2, 32, 32);
 		Panel_Sidebar_Dashboard.add(LB_ImgDashboard);
 		LB_ImgDashboard.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 20));
@@ -558,7 +678,7 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar_Customers.add(LB_Customers);
 		
 		JLabel LB_ImgCustomers = new JLabel("");
-		LB_ImgCustomers.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Gender Neutral User-32.png"));
+		LB_ImgCustomers.setIcon(new ImageIcon("Images\\Gender Neutral User-32.png"));
 		LB_ImgCustomers.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 20));
 		LB_ImgCustomers.setAlignmentY(0.0f);
 		LB_ImgCustomers.setBounds(0, 2, 32, 32);
@@ -583,7 +703,7 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar_Products.add(LB_Products);
 		
 		JLabel LB_ImgProducts = new JLabel("");
-		LB_ImgProducts.setIcon(new ImageIcon("C:\\Users\\Lu\u00EDsPaulo\\Downloads\\Controller-32.png"));
+		LB_ImgProducts.setIcon(new ImageIcon("Images\\Controller-32.png"));
 		LB_ImgProducts.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 20));
 		LB_ImgProducts.setAlignmentY(0.0f);
 		LB_ImgProducts.setBounds(0, 2, 32, 32);
@@ -617,7 +737,7 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar_Dashboard.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				Panel_SideDashboard.setBackground(Color.BLUE);
+				Panel_SideDashboard.setBackground(SystemColor.textHighlight);
 				LB_Dashboard.setForeground(Color.BLACK);
 				LB_Dashboard.setFont(LB_Dashboard.getFont().deriveFont(Font.BOLD));
 			}
@@ -629,7 +749,7 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Panel_SideDashboard.setBackground(Color.BLUE);
+				Panel_SideDashboard.setBackground(SystemColor.textHighlight);
 				LB_Dashboard.setForeground(Color.BLACK);
 				LB_Dashboard.setFont(LB_Dashboard.getFont().deriveFont(Font.BOLD));
 			}
@@ -638,14 +758,14 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar_Customers.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				Panel_SideCustomers.setBackground(Color.BLUE);
+				Panel_SideCustomers.setBackground(SystemColor.textHighlight);
 				LB_Customers.setForeground(Color.BLACK);
 				LB_Customers.setFont(LB_Customers.getFont().deriveFont(Font.BOLD));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				if (Panel_Client.isVisible()) {
-					Panel_SideCustomers.setBackground(Color.BLUE);
+					Panel_SideCustomers.setBackground(SystemColor.textHighlight);
 					LB_Customers.setForeground(Color.BLACK);
 					LB_Customers.setFont(LB_Customers.getFont().deriveFont(Font.BOLD));
 				
@@ -657,7 +777,7 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Panel_SideCustomers.setBackground(Color.BLUE);
+				Panel_SideCustomers.setBackground(SystemColor.textHighlight);
 				LB_Customers.setForeground(Color.BLACK);
 				LB_Customers.setFont(LB_Customers.getFont().deriveFont(Font.BOLD));
 				if (Panel_Products.isVisible()) {
@@ -671,14 +791,14 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar_Products.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				Panel_SideProducts.setBackground(Color.BLUE);
+				Panel_SideProducts.setBackground(SystemColor.textHighlight);
 				LB_Products.setForeground(Color.BLACK);
 				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				if (Panel_Products.isVisible()) {
-					Panel_SideProducts.setBackground(Color.BLUE);
+					Panel_SideProducts.setBackground(SystemColor.textHighlight);
 					LB_Products.setForeground(Color.BLACK);
 					LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
 				}
@@ -690,7 +810,7 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Panel_SideProducts.setBackground(Color.BLUE);
+				Panel_SideProducts.setBackground(SystemColor.textHighlight);
 				LB_Products.setForeground(Color.BLACK);
 				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
 				Panel_Home.setVisible(false);
@@ -699,6 +819,83 @@ public class ApplicationFrame extends JFrame {
 				}
 				Panel_Products.setVisible(true);
 				
+			}
+		});
+		
+		Panel_ProductAdd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				Panel_ProductAdd.setBackground(new Color(65, 105, 225));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Panel_ProductAdd.setBackground(SystemColor.textHighlight);
+			}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				//TO DO
+			}
+		});
+		
+		Panel_BT_Edit_Product.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				Panel_BT_Edit_Product.setBackground(new Color(65, 105, 225));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Panel_BT_Edit_Product.setBackground(SystemColor.textHighlight);
+			}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				//TO DO
+			}
+		});
+		
+		Panel_BT_Add_Products.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				Panel_BT_Add_Products.setBackground(new Color(60, 179, 113));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Panel_BT_Add_Products.setBackground(new Color(102, 102, 102));
+			}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Panel_Products.setVisible(false);
+				Panel_Add_Product.setVisible(true);
+			}
+		});
+		
+		Panel_BT_Edit_Products.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				Panel_BT_Edit_Products.setBackground(new Color(60, 179, 113));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Panel_BT_Edit_Products.setBackground(new Color(102, 102, 102));
+			}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Panel_Products.setVisible(false);
+				Panel_Edit_Product.setVisible(true);
+			}
+		});
+		
+		Panel_BT_Delete_Products.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				Panel_BT_Delete_Products.setBackground(new Color(255, 51, 51));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Panel_BT_Delete_Products.setBackground(new Color(102, 102, 102));
+			}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				//TO DO
 			}
 		});
 		
