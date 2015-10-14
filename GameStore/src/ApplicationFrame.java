@@ -77,6 +77,7 @@ public class ApplicationFrame extends JFrame {
 	private JTextField TXT_ProductName;
 	private JTextField TXT_Edit_Name;
 	private BancoDados bd;
+	private JTextField TXT_ID;
 
 	/**
 	 * Launch the application.
@@ -233,6 +234,8 @@ public class ApplicationFrame extends JFrame {
 				"ID", "Nome", "CPF/CNPJ", "Endere\u00E7o", "Obs"
 			}
 		) );
+		
+		
 		table.getColumnModel().getColumn(0).setPreferredWidth(31);
 		table.getColumnModel().getColumn(1).setPreferredWidth(180);
 		table.getColumnModel().getColumn(2).setPreferredWidth(84);
@@ -410,7 +413,7 @@ public class ApplicationFrame extends JFrame {
 		Panel_Products.add(LB_Tipo);
 		
 		JComboBox CB_tipo_produto = ComboBox_Tipo(138, 137, 299, 33);
-		Panel_Products.add(CB_tipo_produto);
+		/*Panel_Products.add(CB_tipo_produto);*/
 		
 		JButton button = new JButton("PESQUISAR");
 		button.addActionListener(new ActionListener() {
@@ -441,6 +444,7 @@ public class ApplicationFrame extends JFrame {
 									"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
 							}
 						));
+
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -564,7 +568,7 @@ public class ApplicationFrame extends JFrame {
 		
 		TXT_Edit_Name = new JTextField();
 		TXT_Edit_Name.setColumns(10);
-		TXT_Edit_Name.setBounds(67, 149, 441, 30);
+		TXT_Edit_Name.setBounds(67, 149, 362, 30);
 		Panel_Edit_Product.add(TXT_Edit_Name);
 		
 		JLabel LB_Edit_Name = new JLabel("NOME");
@@ -592,7 +596,7 @@ public class ApplicationFrame extends JFrame {
 		LB_Edit_Price.setBounds(67, 296, 211, 22);
 		Panel_Edit_Product.add(LB_Edit_Price);
 		
-		JSpinner Spinner_Edit_Price = new JSpinner();
+		JTextField Spinner_Edit_Price = new JTextField();
 		Spinner_Edit_Price.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		Spinner_Edit_Price.setBounds(67, 321, 441, 29);
 		Panel_Edit_Product.add(Spinner_Edit_Price);
@@ -605,7 +609,7 @@ public class ApplicationFrame extends JFrame {
 		Panel_Edit_Product.add(LB_Edit_Type);
 		
 		JComboBox ComboBox_Edit_Product = ComboBox_Tipo(67, 81, 441, 30);
-		Panel_Edit_Product.add(ComboBox_Edit_Product);
+		/*Panel_Edit_Product.add(ComboBox_Edit_Product);*/
 		
 		JPanel Panel_BT_Edit_Product = new JPanel();
 		
@@ -620,6 +624,18 @@ public class ApplicationFrame extends JFrame {
 		lblEditar.setAlignmentY(0.0f);
 		lblEditar.setBounds(172, 7, 95, 24);
 		Panel_BT_Edit_Product.add(lblEditar);
+		
+		JLabel lblId = new JLabel("ID");
+		lblId.setForeground(SystemColor.textHighlight);
+		lblId.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		lblId.setBounds(439, 133, 46, 14);
+		Panel_Edit_Product.add(lblId);
+		
+		TXT_ID = new JTextField();
+		TXT_ID.enable(false);
+		TXT_ID.setBounds(439, 149, 69, 30);
+		Panel_Edit_Product.add(TXT_ID);
+		TXT_ID.setColumns(10);
 		
 		JPanel Panel_Sidebar = new JPanel();
 		Panel_Sidebar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -810,6 +826,12 @@ public class ApplicationFrame extends JFrame {
 				Panel_SideProducts.setBackground(SystemColor.textHighlight);
 				LB_Products.setForeground(Color.BLACK);
 				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
+				Table_Product.setModel(new DefaultTableModel(
+						tabelaArray,
+						new String[] {
+							"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
+						}
+					));
 				TrocaDeTela(Panel_Products);
 				
 			}
@@ -827,8 +849,8 @@ public class ApplicationFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try{
-				double value = Double.parseDouble(Spinner_ProductPrice.getText());
-				bd.InserirProduto(TXT_ProductName.getText(), TXTArea_ProductDescription.getText(), value, ComboBox_ProductType.getSelectedIndex());
+				double preco = Double.parseDouble(Spinner_ProductPrice.getText());
+				bd.InserirProduto(TXT_ProductName.getText(), TXTArea_ProductDescription.getText(), preco, ComboBox_ProductType.getSelectedIndex());
 				TXT_ProductName.setText("");
 				TXTArea_ProductDescription.setText("");
 				Spinner_ProductPrice.setText("");
@@ -837,22 +859,8 @@ public class ApplicationFrame extends JFrame {
 				}
 			}
 		});
-		
-		Panel_BT_Edit_Product.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				Panel_BT_Edit_Product.setBackground(new Color(65, 105, 225));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				Panel_BT_Edit_Product.setBackground(SystemColor.textHighlight);
-			}
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				TrocaDeTela(Panel_Edit_Product);
-			}
-		});
-		
+	
+	
 		Panel_BT_Add_Products.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -868,6 +876,30 @@ public class ApplicationFrame extends JFrame {
 			}
 		});
 		
+		Panel_BT_Edit_Product.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				Panel_BT_Add_Products.setBackground(new Color(60, 179, 113));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				Panel_BT_Add_Products.setBackground(new Color(102, 102, 102));
+			}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				double preco = Double.parseDouble(Spinner_Edit_Price.getText());
+				int id = Integer.parseInt(TXT_ID.getText());
+				bd.EditarProduto(id, TXT_Edit_Name.getText(), TXTA_Edit_TextArea.getText(), preco);
+				Table_Product.setModel(new DefaultTableModel(
+						tabelaArray,
+						new String[] {
+							"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
+						}
+					));
+				TrocaDeTela(Panel_Products);
+			}
+		});
+		
 		Panel_BT_Edit_Products.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -879,7 +911,22 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				try{
+				int linha = Table_Product.getSelectedRow();
+				String id = String.valueOf(Table_Product.getValueAt(linha, 0));
+				String nome = String.valueOf(Table_Product.getValueAt(linha, 1));
+				String descricao = String.valueOf(Table_Product.getValueAt(linha, 3));
+				String preco = String.valueOf(Table_Product.getValueAt(linha, 4));
+				TXT_ID.setText(id);
+				TXT_Edit_Name.setText(nome);
+				TXTA_Edit_TextArea.setText(descricao);
+				Spinner_Edit_Price.setText(preco);
+				
 				TrocaDeTela(Panel_Edit_Product);
+				}catch(Exception e){
+					System.out.println("Selecione um Produto");
+				}
+				
 			}
 		});
 		
