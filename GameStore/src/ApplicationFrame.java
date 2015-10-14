@@ -106,11 +106,7 @@ public class ApplicationFrame extends JFrame {
 		
 		BancoDados bd = new BancoDados();
 		Connection con = bd.ConectaBD(jdbc, "sa", "123456");
-		
-		/* Criação das tabelas, caso queira descomente essa parte para que ele cria todas as tabelas.
-		 * bd.CriarTabela(con);
-		 */
-		
+
 		tabelaArray = new Object[9][5];
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,7 +133,12 @@ public class ApplicationFrame extends JFrame {
 		JMenuItem mntmDesconectar = new JMenuItem("Desconectar");
 		mnLogin.add(mntmDesconectar);
 		
-		JMenuItem mntmAtualizar = new JMenuItem("Atualizar");
+		JMenuItem mntmAtualizar = new JMenuItem("Criar Tabelas");
+		mntmAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				bd.CriarTabela(con);
+			}
+		});
 		mnLogin.add(mntmAtualizar);
 		
 		JLabel LB_ImgBackground = new JLabel("");
