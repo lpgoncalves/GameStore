@@ -16,7 +16,7 @@ public class BancoDados {
 		
 		try{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-			con = DriverManager.getConnection(connectUrl, user, "000");
+			con = DriverManager.getConnection(connectUrl, user, senha);
 			JOptionPane.showMessageDialog(null,"Conexao realizada com sucesso.");
 
 		
