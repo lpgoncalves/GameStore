@@ -851,7 +851,9 @@ public class ApplicationFrame extends JFrame {
 				try{
 				double preco = Double.parseDouble(Spinner_ProductPrice.getText());
 				bd.InserirProduto(TXT_ProductName.getText(), TXTArea_ProductDescription.getText(), preco, ComboBox_ProductType.getSelectedIndex());
+				
 				JOptionPane.showMessageDialog(null,"O Produto ("+TXT_ProductName.getText()+") foi adicionado com sucesso");
+				
 				TXT_ProductName.setText("");
 				TXTArea_ProductDescription.setText("");
 				Spinner_ProductPrice.setText("");
@@ -891,7 +893,9 @@ public class ApplicationFrame extends JFrame {
 				double preco = Double.parseDouble(Spinner_Edit_Price.getText());
 				int id = Integer.parseInt(TXT_ID.getText());
 				bd.EditarProduto(id, TXT_Edit_Name.getText(), TXTA_Edit_TextArea.getText(), preco);
+				
 				JOptionPane.showMessageDialog(null,"O Produto foi alterado com sucesso");
+				
 				Table_Product.setModel(new DefaultTableModel(
 						tabelaArray,
 						new String[] {
@@ -927,7 +931,7 @@ public class ApplicationFrame extends JFrame {
 				
 				TrocaDeTela(Panel_Edit_Product);
 				}else{
-					JOptionPane.showMessageDialog(null, "Selecione um Produto na tabela.");
+					JOptionPane.showMessageDialog(null, "Selecione um Produto na tabela.", "Atenção!", JOptionPane.WARNING_MESSAGE);
 				}
 				}catch(Exception e){
 					e.printStackTrace();
@@ -988,7 +992,7 @@ public class ApplicationFrame extends JFrame {
 							e.printStackTrace();
 						}
 				}else{
-					JOptionPane.showMessageDialog(null, "Selecione um Produto na tabela.");
+					JOptionPane.showMessageDialog(null, "Selecione um Produto na tabela.", "Atenção!", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
