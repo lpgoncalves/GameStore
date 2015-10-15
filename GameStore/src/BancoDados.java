@@ -1,8 +1,11 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.*;
 
+import javax.swing.JOptionPane;
+
+import java.sql.*;
+import javax.swing.JOptionPane;
 public class BancoDados {
 	private Connection con;
 	public BancoDados(){
@@ -13,13 +16,13 @@ public class BancoDados {
 		
 		try{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-			con = DriverManager.getConnection(connectUrl, user, senha);
-			System.out.println("Conexão Realizada com sucesso");
+			con = DriverManager.getConnection(connectUrl, user, "000");
+			JOptionPane.showMessageDialog(null,"Conexao realizada com sucesso.");
 
 		
 			
 		} catch (SQLException ex) {
-			System.out.println("SQLException: " + ex.getMessage());
+			JOptionPane.showMessageDialog(null,"Não foi Possivel conectar no Banco de Dados.");
 			
 		} catch (Exception e){
 			System.out.println("Não foi possivel conectar" + e);

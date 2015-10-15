@@ -78,6 +78,9 @@ public class ApplicationFrame extends JFrame {
 	private JTextField TXT_Edit_Name;
 	private BancoDados bd;
 	private JTextField TXT_ID;
+	private JComboBox CB_tipo_produto;
+	private JComboBox ComboBox_ProductType;
+	private JComboBox ComboBox_Edit_Product;
 
 	/**
 	 * Launch the application.
@@ -113,8 +116,7 @@ public class ApplicationFrame extends JFrame {
 		
 		String jdbc = "jdbc:sqlserver://localhost:1433;databaseName=GAMESTORE";
 		
-		bd = new BancoDados();
-		bd.ConectaBD(jdbc, "sa", "123456");
+		
 		
 		tabelaArray = new Object[9][5];
 		
@@ -412,7 +414,7 @@ public class ApplicationFrame extends JFrame {
 		LB_Tipo.setBounds(79, 138, 37, 24);
 		Panel_Products.add(LB_Tipo);
 		
-		JComboBox CB_tipo_produto = ComboBox_Tipo(138, 137, 299, 33);
+		
 		/*Panel_Products.add(CB_tipo_produto);*/
 		
 		JButton button = new JButton("PESQUISAR");
@@ -533,8 +535,8 @@ public class ApplicationFrame extends JFrame {
 		LB_Type.setBounds(67, 59, 211, 22);
 		Panel_Add_Product.add(LB_Type);
 		
-		JComboBox ComboBox_ProductType = ComboBox_Tipo(67, 81, 441, 30);
-		Panel_Add_Product.add(ComboBox_ProductType);
+		
+		
 		
 		JPanel Panel_ProductAdd = new JPanel();
 		
@@ -608,7 +610,7 @@ public class ApplicationFrame extends JFrame {
 		LB_Edit_Type.setBounds(67, 59, 211, 22);
 		Panel_Edit_Product.add(LB_Edit_Type);
 		
-		JComboBox ComboBox_Edit_Product = ComboBox_Tipo(67, 81, 441, 30);
+		
 		/*Panel_Edit_Product.add(ComboBox_Edit_Product);*/
 		
 		JPanel Panel_BT_Edit_Product = new JPanel();
@@ -741,6 +743,10 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+					bd = new BancoDados();
+					bd.ConectaBD(jdbc, "sa", "123456");
+
 				Panel_Entrar.setBackground(new Color(65, 105, 225));
 				Panel_Login.setVisible(false);
 				Panel_Home.setVisible(true);
@@ -823,6 +829,11 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				CB_tipo_produto = ComboBox_Tipo(138, 137, 299, 33);
+				ComboBox_ProductType = ComboBox_Tipo(67, 81, 441, 30);
+				ComboBox_Edit_Product = ComboBox_Tipo(67, 81, 441, 30);
+				Panel_Add_Product.add(ComboBox_ProductType);
+				
 				Panel_SideProducts.setBackground(SystemColor.textHighlight);
 				LB_Products.setForeground(Color.BLACK);
 				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
