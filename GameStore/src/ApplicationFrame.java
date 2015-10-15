@@ -941,7 +941,46 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				//TO DO
+				int linha = Table_Product.getSelectedRow();
+				if(Table_Product.getSelectedRow() >= 0){
+					String idString = String.valueOf(Table_Product.getValueAt(linha, 0));
+					int id = Integer.parseInt(idString);
+					bd.ExcluirProduto(id);
+					
+					ResultSet[] result = bd.ConsultarProduto(TXT_Product.getText(), CB_tipo_produto.getSelectedItem());
+					ResultSet rs = result[0];
+					ResultSet count = result[1];
+					
+					try {
+						count.next();
+						int tm = count.getInt("tm");
+						if(tm < 9) tm = 9;
+						Object[][] tabela = new Object[tm][5];
+						int i = 0;
+						while(rs.next()){
+							tabela[i][0] = rs.getInt("id_produto");
+							tabela[i][1] = rs.getString("nome_produto");
+							tabela[i][2] = rs.getString("descricao_tipo");
+							tabela[i][3] = rs.getString("descricao_produto");
+							tabela[i][4] = rs.getBigDecimal("preco_produto");
+							
+							i++;
+						}
+					
+						Table_Product.setModel(new DefaultTableModel(
+								tabela,
+								new String[] {
+										"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
+								}
+							));
+
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else{
+					System.out.println("Selecione um Produto.");
+				}
 			}
 		});
 		

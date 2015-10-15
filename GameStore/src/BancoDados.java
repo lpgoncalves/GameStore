@@ -113,15 +113,24 @@ public class BancoDados {
 	}
 	
 	public void EditarProduto(int id, String nome, String descricao, double preco){
-	try{
-		Statement stmt = con.createStatement();
-		stmt.executeUpdate("UPDATE Produtos SET descricao_produto = '"+descricao+"', nome_produto='"+nome+"', preco_produto='"+preco+"' WHERE id_produto="+id+" ");
-		
-	}catch(SQLException e){
-		e.printStackTrace();
-	}
+		try{
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("UPDATE Produtos SET descricao_produto = '"+descricao+"', nome_produto='"+nome+"', preco_produto='"+preco+"' WHERE id_produto="+id+" ");
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
 	}
 	
+	public void ExcluirProduto(int id){
+		try{
+			Statement stmt = con.createStatement();
+			int count = stmt.executeUpdate("DELETE FROM Produtos WHERE id_produto = "+id+"");
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
 	
 	public void CriarTabela(){
 		try{
