@@ -1,7 +1,7 @@
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
-
+import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -851,6 +851,7 @@ public class ApplicationFrame extends JFrame {
 				try{
 				double preco = Double.parseDouble(Spinner_ProductPrice.getText());
 				bd.InserirProduto(TXT_ProductName.getText(), TXTArea_ProductDescription.getText(), preco, ComboBox_ProductType.getSelectedIndex());
+				JOptionPane.showMessageDialog(null,"O Produto ("+TXT_ProductName.getText()+") foi adicionado com sucesso");
 				TXT_ProductName.setText("");
 				TXTArea_ProductDescription.setText("");
 				Spinner_ProductPrice.setText("");
@@ -890,6 +891,7 @@ public class ApplicationFrame extends JFrame {
 				double preco = Double.parseDouble(Spinner_Edit_Price.getText());
 				int id = Integer.parseInt(TXT_ID.getText());
 				bd.EditarProduto(id, TXT_Edit_Name.getText(), TXTA_Edit_TextArea.getText(), preco);
+				JOptionPane.showMessageDialog(null,"O Produto foi alterado com sucesso");
 				Table_Product.setModel(new DefaultTableModel(
 						tabelaArray,
 						new String[] {
@@ -913,18 +915,22 @@ public class ApplicationFrame extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				try{
 				int linha = Table_Product.getSelectedRow();
-				String id = String.valueOf(Table_Product.getValueAt(linha, 0));
-				String nome = String.valueOf(Table_Product.getValueAt(linha, 1));
-				String descricao = String.valueOf(Table_Product.getValueAt(linha, 3));
-				String preco = String.valueOf(Table_Product.getValueAt(linha, 4));
-				TXT_ID.setText(id);
-				TXT_Edit_Name.setText(nome);
-				TXTA_Edit_TextArea.setText(descricao);
-				Spinner_Edit_Price.setText(preco);
+				if(linha >= 0){
+					String id = String.valueOf(Table_Product.getValueAt(linha, 0));
+					String nome = String.valueOf(Table_Product.getValueAt(linha, 1));
+					String descricao = String.valueOf(Table_Product.getValueAt(linha, 3));
+					String preco = String.valueOf(Table_Product.getValueAt(linha, 4));
+					TXT_ID.setText(id);
+					TXT_Edit_Name.setText(nome);
+					TXTA_Edit_TextArea.setText(descricao);
+					Spinner_Edit_Price.setText(preco);
 				
 				TrocaDeTela(Panel_Edit_Product);
+				}else{
+					JOptionPane.showMessageDialog(null, "Selecione um Produto na tabela.");
+				}
 				}catch(Exception e){
-					System.out.println("Selecione um Produto");
+					e.printStackTrace();
 				}
 				
 			}
@@ -942,10 +948,13 @@ public class ApplicationFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				int linha = Table_Product.getSelectedRow();
-				if(Table_Product.getSelectedRow() >= 0){
+				if(linha >= 0){
 					String idString = String.valueOf(Table_Product.getValueAt(linha, 0));
+					String nome = String.valueOf(Table_Product.getValueAt(linha, 1));
 					int id = Integer.parseInt(idString);
 					bd.ExcluirProduto(id);
+					
+					JOptionPane.showMessageDialog(null, "O Produto ("+nome+") foi excluido com sucesso.");
 					
 					ResultSet[] result = bd.ConsultarProduto(TXT_Product.getText(), CB_tipo_produto.getSelectedItem());
 					ResultSet rs = result[0];
@@ -974,12 +983,12 @@ public class ApplicationFrame extends JFrame {
 								}
 							));
 
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 				}else{
-					System.out.println("Selecione um Produto.");
+					JOptionPane.showMessageDialog(null, "Selecione um Produto na tabela.");
 				}
 			}
 		});
