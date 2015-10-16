@@ -432,7 +432,6 @@ public class ApplicationFrame extends JFrame {
 					int i = 0;
 					while(rs.next()){
 						if(i >= tm) break;
-						System.out.println("teste" + i + "tm: " + tm);
 						tabela[i][0] = rs.getInt("id_produto");
 						tabela[i][1] = rs.getString("nome_produto");
 						tabela[i][2] = rs.getString("descricao_tipo");
@@ -992,7 +991,6 @@ public class ApplicationFrame extends JFrame {
 						int i = 0;
 						while(rs.next()){
 							if(i >= tm) break;
-							System.out.println("teste" + i + "tm: " + tm);
 							tabela[i][0] = rs.getInt("id_produto");
 							tabela[i][1] = rs.getString("nome_produto");
 							tabela[i][2] = rs.getString("descricao_tipo");
