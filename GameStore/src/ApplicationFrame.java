@@ -415,12 +415,12 @@ public class ApplicationFrame extends JFrame {
 		Panel_Products.add(LB_Tipo);
 		
 		
-		/*Panel_Products.add(CB_tipo_produto);*/
+		
 		
 		JButton button = new JButton("PESQUISAR");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ResultSet[] result = bd.ConsultarProduto(TXT_Product.getText(), CB_tipo_produto.getSelectedItem());
+				ResultSet[] result = bd.ConsultarProduto(TXT_Product.getText(), CB_tipo_produto.getSelectedIndex());
 				ResultSet rs = result[0];
 				ResultSet count = result[1];
 				
@@ -431,6 +431,8 @@ public class ApplicationFrame extends JFrame {
 					Object[][] tabela = new Object[tm][5];
 					int i = 0;
 					while(rs.next()){
+						if(i >= tm) break;
+						System.out.println("teste" + i + "tm: " + tm);
 						tabela[i][0] = rs.getInt("id_produto");
 						tabela[i][1] = rs.getString("nome_produto");
 						tabela[i][2] = rs.getString("descricao_tipo");
@@ -609,10 +611,7 @@ public class ApplicationFrame extends JFrame {
 		LB_Edit_Type.setAlignmentY(0.0f);
 		LB_Edit_Type.setBounds(67, 59, 211, 22);
 		Panel_Edit_Product.add(LB_Edit_Type);
-		
-		
-		/*Panel_Edit_Product.add(ComboBox_Edit_Product);*/
-		
+				
 		JPanel Panel_BT_Edit_Product = new JPanel();
 		
 		Panel_BT_Edit_Product.setLayout(null);
@@ -657,13 +656,9 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar.add(Panel_Sidebar_Dashboard);
 		
 		BT_Entrar.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
+
 			public void actionPerformed(ActionEvent arg0) {
-				if(bd.Autenticar(TXT_Login.getText(), TXT_Password.getText())){
-					Panel_Login.setVisible(false);
-					Panel_Sidebar.setVisible(true);
-					Panel_Client.setVisible(true);
-				}
+				
 			}
 		});
 		Panel_Sidebar_Dashboard.setLayout(null);
@@ -743,15 +738,16 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-					bd = new BancoDados();
-					bd.ConectaBD(jdbc, "sa", "123456");
-
-				Panel_Entrar.setBackground(new Color(65, 105, 225));
-				Panel_Login.setVisible(false);
-				Panel_Home.setVisible(true);
-				Panel_Sidebar.setVisible(true);
-				
+				bd = new BancoDados();
+				bd.ConectaBD(jdbc, "sa", "123456");
+				if(bd.Autenticar(TXT_Login.getText(), TXT_Password.getText())){
+					Panel_Entrar.setBackground(new Color(65, 105, 225));
+					Panel_Login.setVisible(false);
+					Panel_Home.setVisible(true);
+					Panel_Sidebar.setVisible(true);
+				}else{
+					JOptionPane.showMessageDialog(null,"Login ou Senha Incorreto.");
+				}
 			}
 		});
 		
@@ -829,11 +825,15 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				CB_tipo_produto = ComboBox_Tipo(138, 137, 299, 33);
 				ComboBox_ProductType = ComboBox_Tipo(67, 81, 441, 30);
 				ComboBox_Edit_Product = ComboBox_Tipo(67, 81, 441, 30);
-				Panel_Add_Product.add(ComboBox_ProductType);
 				
+				Panel_Add_Product.add(ComboBox_ProductType);
+				Panel_Products.add(CB_tipo_produto);
+				Panel_Edit_Product.add(ComboBox_Edit_Product);
+								
 				Panel_SideProducts.setBackground(SystemColor.textHighlight);
 				LB_Products.setForeground(Color.BLACK);
 				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
@@ -860,14 +860,19 @@ public class ApplicationFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try{
-				double preco = Double.parseDouble(Spinner_ProductPrice.getText());
-				bd.InserirProduto(TXT_ProductName.getText(), TXTArea_ProductDescription.getText(), preco, ComboBox_ProductType.getSelectedIndex());
 				
-				JOptionPane.showMessageDialog(null,"O Produto ("+TXT_ProductName.getText()+") foi adicionado com sucesso");
-				
-				TXT_ProductName.setText("");
-				TXTArea_ProductDescription.setText("");
-				Spinner_ProductPrice.setText("");
+				if(ComboBox_Edit_Product.getSelectedIndex() > 0){
+					double preco = Double.parseDouble(Spinner_ProductPrice.getText());
+					bd.InserirProduto(TXT_ProductName.getText(), TXTArea_ProductDescription.getText(), preco, ComboBox_ProductType.getSelectedIndex());
+					
+					JOptionPane.showMessageDialog(null,"O Produto ("+TXT_ProductName.getText()+") foi adicionado com sucesso");
+					
+					TXT_ProductName.setText("");
+					TXTArea_ProductDescription.setText("");
+					Spinner_ProductPrice.setText("");
+				}else{
+					JOptionPane.showMessageDialog(null, "Selecione o Tipo do Produto");
+				}
 				}catch(Exception e){
 					e.printStackTrace();
 				}
@@ -903,17 +908,21 @@ public class ApplicationFrame extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				double preco = Double.parseDouble(Spinner_Edit_Price.getText());
 				int id = Integer.parseInt(TXT_ID.getText());
-				bd.EditarProduto(id, TXT_Edit_Name.getText(), TXTA_Edit_TextArea.getText(), preco);
-				
-				JOptionPane.showMessageDialog(null,"O Produto foi alterado com sucesso");
-				
-				Table_Product.setModel(new DefaultTableModel(
-						tabelaArray,
-						new String[] {
-							"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
-						}
-					));
-				TrocaDeTela(Panel_Products);
+				if(ComboBox_Edit_Product.getSelectedIndex() > 0){
+					bd.EditarProduto(id, TXT_Edit_Name.getText(), TXTA_Edit_TextArea.getText(), preco, ComboBox_Edit_Product.getSelectedIndex());
+					
+					JOptionPane.showMessageDialog(null,"O Produto foi alterado com sucesso");
+					
+					Table_Product.setModel(new DefaultTableModel(
+							tabelaArray,
+							new String[] {
+								"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
+							}
+						));
+					TrocaDeTela(Panel_Products);
+				}else{
+					JOptionPane.showMessageDialog(null, "Selecione o Tipo do Produto");
+				}
 			}
 		});
 		
@@ -971,7 +980,7 @@ public class ApplicationFrame extends JFrame {
 					
 					JOptionPane.showMessageDialog(null, "O Produto ("+nome+") foi excluido com sucesso.");
 					
-					ResultSet[] result = bd.ConsultarProduto(TXT_Product.getText(), CB_tipo_produto.getSelectedItem());
+					ResultSet[] result = bd.ConsultarProduto(TXT_Product.getText(), CB_tipo_produto.getSelectedIndex());
 					ResultSet rs = result[0];
 					ResultSet count = result[1];
 					
@@ -982,6 +991,8 @@ public class ApplicationFrame extends JFrame {
 						Object[][] tabela = new Object[tm][5];
 						int i = 0;
 						while(rs.next()){
+							if(i >= tm) break;
+							System.out.println("teste" + i + "tm: " + tm);
 							tabela[i][0] = rs.getInt("id_produto");
 							tabela[i][1] = rs.getString("nome_produto");
 							tabela[i][2] = rs.getString("descricao_tipo");
@@ -1027,6 +1038,7 @@ public class ApplicationFrame extends JFrame {
 		
 		JComboBox ComboBox = new JComboBox();
 		ComboBox.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		ComboBox.addItem("Selecione um Tipo");
 		try{
 		while(rs.next()) ComboBox.addItem(rs.getString(2));
 		}catch(SQLException e){

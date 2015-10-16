@@ -51,15 +51,21 @@ public class BancoDados {
 		return null;
 	}
 	
-	public ResultSet[] ConsultarProduto(String produto, Object tipo){
+	public ResultSet[] ConsultarProduto(String produto, int tipo){
 		try{
 			Statement stmt = con.createStatement();
-			
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Produtos, Tipo_Produto "
-					+ "WHERE nome_produto LIKE '"+ produto +"%' AND "
-					+ "cd_tipo_produto = cd_tipo AND "
-					+ "descricao_tipo = '"+ tipo +"'");
-			
+			ResultSet rs;
+			System.out.print("tipo"+tipo);
+			if(tipo == 0){
+					rs = stmt.executeQuery("SELECT * FROM Produtos "
+						+ "LEFT JOIN Tipo_Produto ON cd_tipo_produto = cd_tipo "
+						+ "WHERE nome_produto LIKE '"+ produto +"%'");
+			}else{
+				 	rs = stmt.executeQuery("SELECT * FROM Produtos, Tipo_Produto "
+						+ "WHERE nome_produto LIKE '"+ produto +"%' AND "
+						+ "cd_tipo_produto = cd_tipo AND "
+						+ "cd_tipo = "+tipo+"");
+			}
 			Statement stmt1 = con.createStatement();
 			ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm FROM Produtos WHERE nome_produto LIKE '"+ produto +"%'"); 
 			
@@ -71,7 +77,7 @@ public class BancoDados {
 			return result;
 			
 		}catch(SQLException e){
-			e.printStackTrace();
+			System.out.print(tipo);
 		}
 		return null;
 	}
@@ -106,20 +112,26 @@ public class BancoDados {
 	
 	public void InserirProduto(String nome, String descricao, double preco, int cd_tipo){
 		try{
-			cd_tipo++;
+			if(cd_tipo > 0){
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("INSERT INTO Produtos(descricao_produto, nome_produto, preco_produto, cd_tipo_produto) "
 					+ "VALUES ('"+descricao+"', '"+nome+"', "+preco+", "+cd_tipo+")");			
+			}else{
+				JOptionPane.showMessageDialog(null,"Selecione um tipo");
+			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
 	}
 	
-	public void EditarProduto(int id, String nome, String descricao, double preco){
+	public void EditarProduto(int id, String nome, String descricao, double preco, int cd_tipo){
 		try{
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate("UPDATE Produtos SET descricao_produto = '"+descricao+"', nome_produto='"+nome+"', preco_produto='"+preco+"' WHERE id_produto="+id+" ");
-			
+			if(cd_tipo > 0){
+				Statement stmt = con.createStatement();
+				stmt.executeUpdate("UPDATE Produtos SET descricao_produto = '"+descricao+"', nome_produto='"+nome+"', preco_produto='"+preco+"', cd_tipo_produto = "+cd_tipo+" WHERE id_produto="+id+" ");
+			}else{
+				JOptionPane.showMessageDialog(null,"Selecione um tipo");
+			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
