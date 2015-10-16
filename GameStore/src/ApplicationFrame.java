@@ -860,7 +860,7 @@ public class ApplicationFrame extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				try{
 				
-				if(ComboBox_Edit_Product.getSelectedIndex() > 0){
+				if(ComboBox_ProductType.getSelectedIndex() > 0){
 					double preco = Double.parseDouble(Spinner_ProductPrice.getText());
 					bd.InserirProduto(TXT_ProductName.getText(), TXTArea_ProductDescription.getText(), preco, ComboBox_ProductType.getSelectedIndex());
 					
@@ -870,7 +870,7 @@ public class ApplicationFrame extends JFrame {
 					TXTArea_ProductDescription.setText("");
 					Spinner_ProductPrice.setText("");
 				}else{
-					JOptionPane.showMessageDialog(null, "Selecione o Tipo do Produto");
+					JOptionPane.showMessageDialog(null, "Selecione o Tipo do Produto(add)");
 				}
 				}catch(Exception e){
 					e.printStackTrace();
@@ -947,6 +947,7 @@ public class ApplicationFrame extends JFrame {
 					TXT_Edit_Name.setText(nome);
 					TXTA_Edit_TextArea.setText(descricao);
 					Spinner_Edit_Price.setText(preco);
+					ComboBox_Edit_Product.setSelectedItem(Table_Product.getValueAt(linha, 2));;
 				
 				TrocaDeTela(Panel_Edit_Product);
 				}else{

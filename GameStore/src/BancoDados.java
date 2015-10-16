@@ -163,27 +163,41 @@ public class BancoDados {
 				"descricao_produto varchar(50) NOT NULL, " +
 				"nome_produto varchar(20), " + 
 				"preco_produto decimal(10,2), " +
-				"cd_tipo_produto int," +
-				"PRIMARY KEY (id_produto))"; 
+				"cd_tipo_produto int, " +
+				"PRIMARY KEY (id_produto), "
+				+"CONSTRAINT fk_cd_tipo_produto FOREIGN KEY(cd_tipo_produto) "
+					+"REFERENCES Tipo_Produto(cd_tipo))"; 
 		
 		String games = "CREATE TABLE Games" +
-				"(id_produto int NOT NULL, "+
-				"nome_game varchar(30) NOT NULL, " +
-				"memory_required int, " +
-				"numero_de_pl int, " +
-				"detalhes varchar(50))";
+				 "(id_produto int NOT NULL, "+
+				 "nome_game varchar(30) NOT NULL, " +
+				 "memory_required int, " +
+			     "numero_de_pl int, " +
+				 "detalhes varchar(50) "
+				+"PRIMARY KEY(id_produto) "
+				+"CONSTRAINT fk_id_produto_game FOREIGN KEY(id_produto) "
+				+"REFERENCES Produtos(id_produto) "
+				+ "ON DELETE CASCADE)";
 		
 		String console = "CREATE TABLE Consoles" +
 				"(id_produto int NOT NULL, " +
 				"driver_type varchar(30) NOT NULL, " +
 				"size int, " +
-				"detalhes_consoles varchar(50))";		
+				"detalhes_consoles varchar(50)"
+				+"PRIMARY KEY(id_produto) "
+				+"CONSTRAINT fk_id_produto_console FOREIGN KEY(id_produto) "
+				+"REFERENCES Produtos(id_produto) "
+				+ "ON DELETE CASCADE)";	
 		
 		String acessorios = "CREATE TABLE Acessorios" + 
 				"(id_produto int NOT NULL, " + 
 				"nome_acessorio varchar(20) NOT NULL, " +
 				"descricao_acessorio varchar(50) ," +
-				"detalhes_acessorio varchar(50))";
+				"detalhes_acessorio varchar(50)"
+				+"PRIMARY KEY(id_produto) "
+				+"CONSTRAINT fk_id_produto_acessorio FOREIGN KEY(id_produto) "
+				+"REFERENCES Produtos(id_produto) "
+				+ "ON DELETE CASCADE)";
 		
 		String cliente = "CREATE TABLE Cliente" +
 				"(id_cliente int IDENTITY(1,1) NOT NULL, " +
@@ -199,7 +213,10 @@ public class BancoDados {
 				"detalhes_pedido varchar(50), " +
 				"id_produto int, " +
 				"id_cliente int NOT NULL, " +
-				"PRIMARY KEY(id_pedido))";
+				"PRIMARY KEY(id_pedido), "
+				+"CONSTRAINT fk_id_cliente_pedido FOREIGN KEY(id_cliente) "
+				+"REFERENCES Cliente(id_cliente) "
+				+ "ON DELETE CASCADE)";
 	
 		String compras_cliente = "CREATE TABLE Compras_Cliente" +
 				"(id_compras int IDENTITY(1,1) NOT NULL, " +
@@ -207,7 +224,10 @@ public class BancoDados {
 				"detalhes_compras varchar(50), " +
 				"id_produto int, " +
 				"id_cliente int NOT NULL, " +
-				"PRIMARY KEY(id_compras))";
+				"PRIMARY KEY(id_compras), "
+				+"CONSTRAINT fk_id_cliente_compra FOREIGN KEY(id_cliente) "
+				+"REFERENCES Cliente(id_cliente) "
+				+ "ON DELETE CASCADE)";
 		
 		Statement stmt = con.createStatement();
 		
