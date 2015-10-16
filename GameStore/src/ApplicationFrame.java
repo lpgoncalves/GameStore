@@ -740,14 +740,14 @@ public class ApplicationFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				bd = new BancoDados();
 				bd.ConectaBD(jdbc, "sa", "123456");
-				if(bd.Autenticar(TXT_Login.getText(), TXT_Password.getText())){
+				//if(bd.Autenticar(TXT_Login.getText(), TXT_Password.getText())){
 					Panel_Entrar.setBackground(new Color(65, 105, 225));
 					Panel_Login.setVisible(false);
 					Panel_Home.setVisible(true);
 					Panel_Sidebar.setVisible(true);
-				}else{
+				/*}else{
 					JOptionPane.showMessageDialog(null,"Login ou Senha Incorreto.");
-				}
+				}*/
 			}
 		});
 		
