@@ -81,6 +81,9 @@ public class ApplicationFrame extends JFrame {
 	private JComboBox CB_tipo_produto;
 	private JComboBox ComboBox_ProductType;
 	private JComboBox ComboBox_Edit_Product;
+	private JTable table_1;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -477,6 +480,93 @@ public class ApplicationFrame extends JFrame {
 		
 		JPanel Panel_Dashboard = new JPanel();
 		Panel_Card.add(Panel_Dashboard, "name_30922889312389");
+		Panel_Dashboard.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 570, 39);
+		panel.setLayout(null);
+		panel.setBackground(new Color(102, 102, 102));
+		Panel_Dashboard.add(panel);
+		
+		JLabel lblDashboard = new JLabel("DASHBOARD");
+		lblDashboard.setForeground(Color.WHITE);
+		lblDashboard.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		lblDashboard.setBounds(227, 5, 125, 28);
+		panel.add(lblDashboard);
+		
+		JSlider slider = new JSlider();
+		slider.setBounds(280, 80, 53, 21);
+		Panel_Dashboard.add(slider);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(0, 235, 570, 271);
+		Panel_Dashboard.add(scrollPane_1);
+		
+		table_1 = new JTable();
+		table_1.setShowVerticalLines(true);
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+			},
+			new String[] {
+				"ID", "Nome do Cliente", "Nome do Produto", "Data", "Pre\u00E7o", "Status"
+			}
+		));
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(27);
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(123);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(98);
+		table_1.getColumnModel().getColumn(3).setPreferredWidth(79);
+		table_1.getColumnModel().getColumn(4).setPreferredWidth(45);
+		scrollPane_1.setViewportView(table_1);
+		
+		JLabel lblPendente = new JLabel("PENDENTE");
+		lblPendente.setForeground(new Color(0, 153, 255));
+		lblPendente.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		lblPendente.setBounds(195, 80, 92, 14);
+		Panel_Dashboard.add(lblPendente);
+		
+		JLabel lblFinalizado = new JLabel("FINALIZADO");
+		lblFinalizado.setForeground(new Color(0, 153, 255));
+		lblFinalizado.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		lblFinalizado.setBounds(331, 80, 108, 14);
+		Panel_Dashboard.add(lblFinalizado);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(173, 149, 299, 33);
+		Panel_Dashboard.add(textField);
+		
+		JLabel label_6 = new JLabel("PRODUTO");
+		label_6.setForeground(new Color(0, 153, 255));
+		label_6.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		label_6.setBounds(84, 155, 79, 14);
+		Panel_Dashboard.add(label_6);
+		
+		JLabel lblCliente = new JLabel("CLIENTE");
+		lblCliente.setForeground(new Color(0, 153, 255));
+		lblCliente.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		lblCliente.setBounds(98, 111, 64, 14);
+		Panel_Dashboard.add(lblCliente);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(173, 105, 299, 33);
+		Panel_Dashboard.add(textField_1);
+		
+		JButton button_1 = new JButton("PESQUISAR");
+		button_1.setForeground(new Color(51, 153, 204));
+		button_1.setFont(new Font("Segoe UI Semilight", Font.BOLD, 14));
+		button_1.setBounds(371, 193, 101, 31);
+		Panel_Dashboard.add(button_1);
 		
 		Panel_Add_Product = new JPanel();
 		Panel_Card.add(Panel_Add_Product, "name_6273018122703");
