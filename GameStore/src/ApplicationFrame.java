@@ -990,10 +990,10 @@ public class ApplicationFrame extends JFrame {
 					TXTArea_ProductDescription.setText("");
 					Spinner_ProductPrice.setText("");
 				}else{
-					JOptionPane.showMessageDialog(null, "Selecione o Tipo do Produto(add)");
+					JOptionPane.showMessageDialog(null, "Selecione o Tipo do Produto(add)" + ComboBox_ProductType.getSelectedIndex());
 				}
 				}catch(Exception e){
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Informe todos os campos.");
 				}
 			}
 		});
