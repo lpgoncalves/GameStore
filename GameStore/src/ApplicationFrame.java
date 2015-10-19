@@ -81,9 +81,9 @@ public class ApplicationFrame extends JFrame {
 	private JComboBox CB_tipo_produto;
 	private JComboBox ComboBox_ProductType;
 	private JComboBox ComboBox_Edit_Product;
-	private JTable table_1;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTable Table_Orders;
+	private JTextField TextField_Dash_Product;
+	private JTextField TextField_Dash_Cliente;
 
 	/**
 	 * Launch the application.
@@ -91,6 +91,7 @@ public class ApplicationFrame extends JFrame {
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel("org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelWin");
+			UIManager.put("RootPane.setupButtonVisible", false);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -99,6 +100,7 @@ public class ApplicationFrame extends JFrame {
 				try {
 					ApplicationFrame frame = new ApplicationFrame();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -147,14 +149,6 @@ public class ApplicationFrame extends JFrame {
 		JMenuItem mntmDesconectar = new JMenuItem("Desconectar");
 		mnLogin.add(mntmDesconectar);
 		
-		JMenuItem mntmAtualizar = new JMenuItem("Criar Tabelas");
-		mntmAtualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				bd.CriarTabela();
-			}
-		});
-		mnLogin.add(mntmAtualizar);
-		
 		JLabel LB_ImgBackground = new JLabel("");
 		LB_ImgBackground.setBounds(0, 41, 786, 146);
 		contentPane.add(LB_ImgBackground);
@@ -170,19 +164,19 @@ public class ApplicationFrame extends JFrame {
 		Panel_Login.setLayout(null);
 		
 		TXT_Login = new JTextField();
-		TXT_Login.setBounds(105, 143, 238, 30);
+		TXT_Login.setBounds(88, 144, 238, 30);
 		Panel_Login.add(TXT_Login);
 		TXT_Login.setFont(new Font("Segoe WP SemiLight", Font.PLAIN, 15));
 		TXT_Login.setColumns(10);
 		
 		JLabel LB_Login = new JLabel("LOGIN");
-		LB_Login.setBounds(50, 137, 55, 39);
+		LB_Login.setBounds(33, 138, 55, 39);
 		Panel_Login.add(LB_Login);
 		LB_Login.setForeground(new Color(102, 153, 255));
 		LB_Login.setFont(new Font("Segoe WP SemiLight", Font.PLAIN, 16));
 		
 		JLabel LB_Senha = new JLabel("SENHA");
-		LB_Senha.setBounds(46, 180, 55, 39);
+		LB_Senha.setBounds(29, 181, 55, 39);
 		Panel_Login.add(LB_Senha);
 		LB_Senha.setForeground(new Color(102, 153, 255));
 		LB_Senha.setFont(new Font("Segoe WP SemiLight", Font.PLAIN, 16));
@@ -190,20 +184,20 @@ public class ApplicationFrame extends JFrame {
 		JButton BT_Entrar = new JButton("ENTRAR");
 		BT_Entrar.setVisible(false);
 		
-		BT_Entrar.setBounds(105, 282, 238, 39);
+		BT_Entrar.setBounds(88, 283, 238, 39);
 		Panel_Login.add(BT_Entrar);
 		BT_Entrar.setBackground(new Color(51, 153, 255));
 		BT_Entrar.setForeground(new Color(51, 153, 255));
 		BT_Entrar.setFont(new Font("Segoe UI Semilight", Font.BOLD, 18));
 		
 		TXT_Password = new JPasswordField();
-		TXT_Password.setBounds(105, 184, 238, 30);
+		TXT_Password.setBounds(88, 185, 238, 30);
 		Panel_Login.add(TXT_Password);
 		
 		JPanel Panel_Entrar = new JPanel();
 		
 		Panel_Entrar.setBackground(SystemColor.textHighlight);
-		Panel_Entrar.setBounds(105, 231, 238, 40);
+		Panel_Entrar.setBounds(88, 232, 238, 40);
 		Panel_Login.add(Panel_Entrar);
 		Panel_Entrar.setLayout(null);
 		
@@ -482,29 +476,29 @@ public class ApplicationFrame extends JFrame {
 		Panel_Card.add(Panel_Dashboard, "name_30922889312389");
 		Panel_Dashboard.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 570, 39);
-		panel.setLayout(null);
-		panel.setBackground(new Color(102, 102, 102));
-		Panel_Dashboard.add(panel);
+		JPanel Panel_Dash_Top = new JPanel();
+		Panel_Dash_Top.setBounds(0, 0, 570, 39);
+		Panel_Dash_Top.setLayout(null);
+		Panel_Dash_Top.setBackground(new Color(102, 102, 102));
+		Panel_Dashboard.add(Panel_Dash_Top);
 		
-		JLabel lblDashboard = new JLabel("DASHBOARD");
-		lblDashboard.setForeground(Color.WHITE);
-		lblDashboard.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblDashboard.setBounds(227, 5, 125, 28);
-		panel.add(lblDashboard);
+		JLabel Label_Dash_Top = new JLabel("DASHBOARD");
+		Label_Dash_Top.setForeground(Color.WHITE);
+		Label_Dash_Top.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		Label_Dash_Top.setBounds(227, 5, 125, 28);
+		Panel_Dash_Top.add(Label_Dash_Top);
 		
-		JSlider slider = new JSlider();
-		slider.setBounds(280, 80, 53, 21);
-		Panel_Dashboard.add(slider);
+		JSlider Slider_Status = new JSlider();
+		Slider_Status.setBounds(280, 80, 53, 21);
+		Panel_Dashboard.add(Slider_Status);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 235, 570, 271);
-		Panel_Dashboard.add(scrollPane_1);
+		JScrollPane ScrollPane_Orders = new JScrollPane();
+		ScrollPane_Orders.setBounds(0, 235, 570, 271);
+		Panel_Dashboard.add(ScrollPane_Orders);
 		
-		table_1 = new JTable();
-		table_1.setShowVerticalLines(true);
-		table_1.setModel(new DefaultTableModel(
+		Table_Orders = new JTable();
+		Table_Orders.setShowVerticalLines(true);
+		Table_Orders.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null},
 				{null, null, null, null, null, null},
@@ -521,52 +515,52 @@ public class ApplicationFrame extends JFrame {
 				"ID", "Nome do Cliente", "Nome do Produto", "Data", "Pre\u00E7o", "Status"
 			}
 		));
-		table_1.getColumnModel().getColumn(0).setPreferredWidth(27);
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(123);
-		table_1.getColumnModel().getColumn(2).setPreferredWidth(98);
-		table_1.getColumnModel().getColumn(3).setPreferredWidth(79);
-		table_1.getColumnModel().getColumn(4).setPreferredWidth(45);
-		scrollPane_1.setViewportView(table_1);
+		Table_Orders.getColumnModel().getColumn(0).setPreferredWidth(27);
+		Table_Orders.getColumnModel().getColumn(1).setPreferredWidth(123);
+		Table_Orders.getColumnModel().getColumn(2).setPreferredWidth(98);
+		Table_Orders.getColumnModel().getColumn(3).setPreferredWidth(79);
+		Table_Orders.getColumnModel().getColumn(4).setPreferredWidth(45);
+		ScrollPane_Orders.setViewportView(Table_Orders);
 		
-		JLabel lblPendente = new JLabel("PENDENTE");
-		lblPendente.setForeground(new Color(0, 153, 255));
-		lblPendente.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
-		lblPendente.setBounds(195, 80, 92, 14);
-		Panel_Dashboard.add(lblPendente);
+		JLabel Label_Pendente = new JLabel("PENDENTE");
+		Label_Pendente.setForeground(new Color(0, 153, 255));
+		Label_Pendente.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		Label_Pendente.setBounds(195, 80, 92, 14);
+		Panel_Dashboard.add(Label_Pendente);
 		
-		JLabel lblFinalizado = new JLabel("FINALIZADO");
-		lblFinalizado.setForeground(new Color(0, 153, 255));
-		lblFinalizado.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
-		lblFinalizado.setBounds(331, 80, 108, 14);
-		Panel_Dashboard.add(lblFinalizado);
+		JLabel Label_Finalizado = new JLabel("FINALIZADO");
+		Label_Finalizado.setForeground(new Color(0, 153, 255));
+		Label_Finalizado.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		Label_Finalizado.setBounds(331, 80, 108, 14);
+		Panel_Dashboard.add(Label_Finalizado);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(173, 149, 299, 33);
-		Panel_Dashboard.add(textField);
+		TextField_Dash_Product = new JTextField();
+		TextField_Dash_Product.setColumns(10);
+		TextField_Dash_Product.setBounds(173, 149, 299, 33);
+		Panel_Dashboard.add(TextField_Dash_Product);
 		
-		JLabel label_6 = new JLabel("PRODUTO");
-		label_6.setForeground(new Color(0, 153, 255));
-		label_6.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
-		label_6.setBounds(84, 155, 79, 14);
-		Panel_Dashboard.add(label_6);
+		JLabel Label_Dash_Product = new JLabel("PRODUTO");
+		Label_Dash_Product.setForeground(new Color(0, 153, 255));
+		Label_Dash_Product.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		Label_Dash_Product.setBounds(84, 155, 79, 14);
+		Panel_Dashboard.add(Label_Dash_Product);
 		
-		JLabel lblCliente = new JLabel("CLIENTE");
-		lblCliente.setForeground(new Color(0, 153, 255));
-		lblCliente.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
-		lblCliente.setBounds(98, 111, 64, 14);
-		Panel_Dashboard.add(lblCliente);
+		JLabel Label_Dash_Cliente = new JLabel("CLIENTE");
+		Label_Dash_Cliente.setForeground(new Color(0, 153, 255));
+		Label_Dash_Cliente.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		Label_Dash_Cliente.setBounds(98, 111, 64, 14);
+		Panel_Dashboard.add(Label_Dash_Cliente);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(173, 105, 299, 33);
-		Panel_Dashboard.add(textField_1);
+		TextField_Dash_Cliente = new JTextField();
+		TextField_Dash_Cliente.setColumns(10);
+		TextField_Dash_Cliente.setBounds(173, 105, 299, 33);
+		Panel_Dashboard.add(TextField_Dash_Cliente);
 		
-		JButton button_1 = new JButton("PESQUISAR");
-		button_1.setForeground(new Color(51, 153, 204));
-		button_1.setFont(new Font("Segoe UI Semilight", Font.BOLD, 14));
-		button_1.setBounds(371, 193, 101, 31);
-		Panel_Dashboard.add(button_1);
+		JButton BT_Dash_Pesquisar = new JButton("PESQUISAR");
+		BT_Dash_Pesquisar.setForeground(new Color(51, 153, 204));
+		BT_Dash_Pesquisar.setFont(new Font("Segoe UI Semilight", Font.BOLD, 14));
+		BT_Dash_Pesquisar.setBounds(371, 193, 101, 31);
+		Panel_Dashboard.add(BT_Dash_Pesquisar);
 		
 		Panel_Add_Product = new JPanel();
 		Panel_Card.add(Panel_Add_Product, "name_6273018122703");
@@ -736,12 +730,12 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar.setLayout(null);
 		
 		JPanel Panel_SideDashboard = new JPanel();
-		Panel_SideDashboard.setBounds(1, 44, 4, 53);
+		Panel_SideDashboard.setBounds(0, 146, 4, 53);
 		Panel_Sidebar.add(Panel_SideDashboard);
 		
 		JPanel Panel_Sidebar_Dashboard = new JPanel();
 		
-		Panel_Sidebar_Dashboard.setBounds(7, 51, 193, 37);
+		Panel_Sidebar_Dashboard.setBounds(6, 153, 193, 37);
 		Panel_Sidebar.add(Panel_Sidebar_Dashboard);
 		
 		BT_Entrar.addActionListener(new ActionListener() {
@@ -769,7 +763,7 @@ public class ApplicationFrame extends JFrame {
 		JPanel Panel_Sidebar_Customers = new JPanel();
 		
 		Panel_Sidebar_Customers.setLayout(null);
-		Panel_Sidebar_Customers.setBounds(7, 123, 173, 37);
+		Panel_Sidebar_Customers.setBounds(6, 225, 173, 37);
 		Panel_Sidebar.add(Panel_Sidebar_Customers);
 		
 		JLabel LB_Customers = new JLabel("CLIENTES");
@@ -788,13 +782,13 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar_Customers.add(LB_ImgCustomers);
 		
 		JPanel Panel_SideCustomers = new JPanel();
-		Panel_SideCustomers.setBounds(1, 115, 4, 53);
+		Panel_SideCustomers.setBounds(0, 217, 4, 53);
 		Panel_Sidebar.add(Panel_SideCustomers);
 		
 		JPanel Panel_Sidebar_Products = new JPanel();
 		
 		Panel_Sidebar_Products.setLayout(null);
-		Panel_Sidebar_Products.setBounds(7, 191, 173, 37);
+		Panel_Sidebar_Products.setBounds(6, 293, 173, 37);
 		Panel_Sidebar.add(Panel_Sidebar_Products);
 		
 		JLabel LB_Products = new JLabel("PRODUTOS");
@@ -813,8 +807,32 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar_Products.add(LB_ImgProducts);
 		
 		JPanel Panel_SideProducts = new JPanel();
-		Panel_SideProducts.setBounds(1, 186, 4, 53);
+		Panel_SideProducts.setBounds(0, 288, 4, 53);
 		Panel_Sidebar.add(Panel_SideProducts);
+		
+		JLabel Label_User_Name = new JLabel("LP.GON\u00C7ALVES");
+		Label_User_Name.setHorizontalAlignment(SwingConstants.CENTER);
+		Label_User_Name.setForeground(SystemColor.textHighlight);
+		Label_User_Name.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		Label_User_Name.setBounds(new Rectangle(41, 5, 142, 22));
+		Label_User_Name.setAlignmentY(0.0f);
+		Label_User_Name.setBounds(6, 111, 193, 22);
+		Panel_Sidebar.add(Label_User_Name);
+		
+		JPanel Panel_UserPicture = new JPanel();
+		Panel_UserPicture.setBorder(new LineBorder(SystemColor.controlShadow, 1, true));
+		Panel_UserPicture.setBounds(50, 11, 102, 102);
+		Panel_Sidebar.add(Panel_UserPicture);
+		Panel_UserPicture.setLayout(null);
+		
+		JLabel Label_User_Picture = new JLabel("");
+		Label_User_Picture.setBounds(1, 0, 100, 100);
+		Panel_UserPicture.add(Label_User_Picture);
+		Label_User_Picture.setIcon(new ImageIcon("Images\\LP_SWU.jpg"));
+		Label_User_Picture.setHorizontalAlignment(SwingConstants.CENTER);
+		Label_User_Picture.setForeground(SystemColor.textHighlight);
+		Label_User_Picture.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		Label_User_Picture.setAlignmentY(0.0f);
 		
 		Panel_Entrar.addMouseListener(new MouseAdapter() {
 			@Override
