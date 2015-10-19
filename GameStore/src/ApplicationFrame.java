@@ -500,26 +500,26 @@ public class ApplicationFrame extends JFrame {
 		Table_Orders.setShowVerticalLines(true);
 		Table_Orders.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"ID", "Nome do Cliente", "Nome do Produto", "Data", "Pre\u00E7o", "Status"
+				"ID", "CPF/CNPJ", "Nome do Cliente", "Nome do Produto", "Data", "Pre\u00E7o", "Status"
 			}
 		));
 		Table_Orders.getColumnModel().getColumn(0).setPreferredWidth(27);
-		Table_Orders.getColumnModel().getColumn(1).setPreferredWidth(123);
-		Table_Orders.getColumnModel().getColumn(2).setPreferredWidth(98);
-		Table_Orders.getColumnModel().getColumn(3).setPreferredWidth(79);
-		Table_Orders.getColumnModel().getColumn(4).setPreferredWidth(45);
+		Table_Orders.getColumnModel().getColumn(2).setPreferredWidth(123);
+		Table_Orders.getColumnModel().getColumn(3).setPreferredWidth(98);
+		Table_Orders.getColumnModel().getColumn(4).setPreferredWidth(79);
+		Table_Orders.getColumnModel().getColumn(5).setPreferredWidth(45);
 		ScrollPane_Orders.setViewportView(Table_Orders);
 		
 		JLabel Label_Pendente = new JLabel("PENDENTE");
