@@ -84,6 +84,7 @@ public class ApplicationFrame extends JFrame {
 	private JTable Table_Orders;
 	private JTextField TextField_Dash_Product;
 	private JTextField TextField_Dash_Cliente;
+	private JPanel Panel_Dashboard;
 
 	/**
 	 * Launch the application.
@@ -472,7 +473,7 @@ public class ApplicationFrame extends JFrame {
 		Table_Product.setBorder(new CompoundBorder());
 		ScrollPane_Products.setViewportView(Table_Product);
 		
-		JPanel Panel_Dashboard = new JPanel();
+		Panel_Dashboard = new JPanel();
 		Panel_Card.add(Panel_Dashboard, "name_30922889312389");
 		Panel_Dashboard.setLayout(null);
 		
@@ -869,15 +870,25 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				Panel_SideDashboard.setBackground(Color.white);
-				LB_Dashboard.setForeground(SystemColor.textHighlight);
-				LB_Dashboard.setFont(LB_Dashboard.getFont().deriveFont(Font.PLAIN));
+				if(Panel_Sidebar_Dashboard.isVisible())
+				{
+					Panel_SideDashboard.setBackground(SystemColor.textHighlight);
+					LB_Dashboard.setForeground(Color.BLACK);
+					LB_Dashboard.setFont(LB_Dashboard.getFont().deriveFont(Font.BOLD));
+				}
+				else{
+					Panel_SideDashboard.setBackground(Color.white);
+					LB_Dashboard.setForeground(SystemColor.textHighlight);
+					LB_Dashboard.setFont(LB_Dashboard.getFont().deriveFont(Font.PLAIN));
+				}
+				
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Panel_SideDashboard.setBackground(SystemColor.textHighlight);
 				LB_Dashboard.setForeground(Color.BLACK);
 				LB_Dashboard.setFont(LB_Dashboard.getFont().deriveFont(Font.BOLD));
+				TrocaDeTela(Panel_Dashboard);
 			}
 		});
 		
@@ -894,6 +905,7 @@ public class ApplicationFrame extends JFrame {
 					Panel_SideCustomers.setBackground(SystemColor.textHighlight);
 					LB_Customers.setForeground(Color.BLACK);
 					LB_Customers.setFont(LB_Customers.getFont().deriveFont(Font.BOLD));
+					
 				
 				} else {
 					Panel_SideCustomers.setBackground(Color.white);
@@ -1135,6 +1147,7 @@ public class ApplicationFrame extends JFrame {
 		Panel_Add_Product.setVisible(false);
 		Panel_Edit_Product.setVisible(false);
 		Panel_Home.setVisible(false);
+		Panel_Dashboard.setVisible(false);
 		
 		panel.setVisible(true);
 
