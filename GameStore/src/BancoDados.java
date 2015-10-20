@@ -1,7 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
 
 import java.sql.*;
@@ -46,7 +45,7 @@ public class BancoDados {
 			return result;
 			
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e);
 		}
 		return null;
 	}
@@ -105,7 +104,7 @@ public class BancoDados {
 				return false;
 			
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e);
 		}
 		return false;
 	}
@@ -120,7 +119,7 @@ public class BancoDados {
 				JOptionPane.showMessageDialog(null,"Selecione um tipo");
 			}
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e);
 		}
 	}
 	
@@ -133,7 +132,7 @@ public class BancoDados {
 				JOptionPane.showMessageDialog(null,"Selecione um tipo");
 			}
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e);
 		}
 	}
 	
@@ -143,7 +142,7 @@ public class BancoDados {
 			int count = stmt.executeUpdate("DELETE FROM Produtos WHERE id_produto = "+id+"");
 			
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e);
 		}
 	}
 	
@@ -259,19 +258,9 @@ public class BancoDados {
 		System.out.println("Tabela compras_cliente criada com sucesso");
 		
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e);
 		}
 	}
 }
-
-
-/*
- * String sql = "INSERT INTO \"TIPO_PRODUTO\" (id_tipo, descricao_tipo) VALUES (?, ?)";
-			PreparedStatement stmt = con.prepareStatement(sql);
-			
-			stmt.setInt(1, 1);
-			stmt.setString(2, "Teste");
-			stmt.executeUpdate();
-*/
 
 

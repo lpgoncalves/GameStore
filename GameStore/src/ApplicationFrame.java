@@ -78,9 +78,9 @@ public class ApplicationFrame extends JFrame {
 	private JTextField TXT_Edit_Name;
 	private BancoDados bd;
 	private JTextField TXT_ID;
-	private JComboBox CB_tipo_produto;
-	private JComboBox ComboBox_ProductType;
-	private JComboBox ComboBox_Edit_Product;
+	public CB_Item CB_tipo_produto;
+	public CB_Item ComboBox_ProductType;
+	public CB_Item ComboBox_Edit_Product;
 	private JTable Table_Orders;
 	private JTextField TextField_Dash_Product;
 	private JTextField TextField_Dash_Cliente;
@@ -94,7 +94,7 @@ public class ApplicationFrame extends JFrame {
 			UIManager.setLookAndFeel("org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelWin");
 			UIManager.put("RootPane.setupButtonVisible", false);
 		} catch (Throwable e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e);
 		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -103,7 +103,7 @@ public class ApplicationFrame extends JFrame {
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null,e);
 				}
 			}
 		});
@@ -117,7 +117,7 @@ public class ApplicationFrame extends JFrame {
 		try {
 			UIManager.setLookAndFeel("org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelWin");
 		} catch (Throwable e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e);
 		}
 		
 		String jdbc = "jdbc:sqlserver://localhost:1433;databaseName=GAMESTORE";
@@ -308,7 +308,7 @@ public class ApplicationFrame extends JFrame {
 						));
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null,e);
 				}
 						
 			}
@@ -448,7 +448,7 @@ public class ApplicationFrame extends JFrame {
 
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null,e);
 				}
 			}
 		});
@@ -620,9 +620,6 @@ public class ApplicationFrame extends JFrame {
 		LB_Type.setAlignmentY(0.0f);
 		LB_Type.setBounds(67, 59, 211, 22);
 		Panel_Add_Product.add(LB_Type);
-		
-		
-		
 		
 		JPanel Panel_ProductAdd = new JPanel();
 		
@@ -849,6 +846,14 @@ public class ApplicationFrame extends JFrame {
 				bd = new BancoDados();
 				bd.ConectaBD(jdbc, "sa", "123456");
 				//if(bd.Autenticar(TXT_Login.getText(), TXT_Password.getText())){
+					CB_tipo_produto = new CB_Item(bd, 138, 137, 299, 33);
+					ComboBox_ProductType = new CB_Item(bd, 67, 81, 441, 30);
+					ComboBox_Edit_Product = new CB_Item(bd, 67, 81, 441, 30);
+					
+					Panel_Add_Product.add(ComboBox_ProductType);
+					Panel_Products.add(CB_tipo_produto);
+					Panel_Edit_Product.add(ComboBox_Edit_Product);
+					
 					Panel_Entrar.setBackground(new Color(65, 105, 225));
 					Panel_Login.setVisible(false);
 					Panel_Home.setVisible(true);
@@ -944,15 +949,7 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				CB_tipo_produto = ComboBox_Tipo(138, 137, 299, 33);
-				ComboBox_ProductType = ComboBox_Tipo(67, 81, 441, 30);
-				ComboBox_Edit_Product = ComboBox_Tipo(67, 81, 441, 30);
-				
-				Panel_Add_Product.add(ComboBox_ProductType);
-				Panel_Products.add(CB_tipo_produto);
-				Panel_Edit_Product.add(ComboBox_Edit_Product);
-								
+										
 				Panel_SideProducts.setBackground(SystemColor.textHighlight);
 				LB_Products.setForeground(Color.BLACK);
 				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
@@ -990,7 +987,7 @@ public class ApplicationFrame extends JFrame {
 					TXTArea_ProductDescription.setText("");
 					Spinner_ProductPrice.setText("");
 				}else{
-					JOptionPane.showMessageDialog(null, "Selecione o Tipo do Produto(add)" + ComboBox_ProductType.getSelectedIndex());
+					JOptionPane.showMessageDialog(null, "Selecione o Tipo do Produto(add)");
 				}
 				}catch(Exception e){
 					JOptionPane.showMessageDialog(null, "Informe todos os campos.");
@@ -1058,8 +1055,9 @@ public class ApplicationFrame extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				try{
 				int linha = Table_Product.getSelectedRow();
-				if(linha >= 0){
-					String id = String.valueOf(Table_Product.getValueAt(linha, 0));
+				String id = String.valueOf(Table_Product.getValueAt(linha, 0));
+				if(linha >= 0 && id != "null"){
+					
 					String nome = String.valueOf(Table_Product.getValueAt(linha, 1));
 					String descricao = String.valueOf(Table_Product.getValueAt(linha, 3));
 					String preco = String.valueOf(Table_Product.getValueAt(linha, 4));
@@ -1068,13 +1066,15 @@ public class ApplicationFrame extends JFrame {
 					TXTA_Edit_TextArea.setText(descricao);
 					Spinner_Edit_Price.setText(preco);
 					ComboBox_Edit_Product.setSelectedItem(Table_Product.getValueAt(linha, 2));;
+					
+					
 				
 				TrocaDeTela(Panel_Edit_Product);
 				}else{
 					JOptionPane.showMessageDialog(null, "Selecione um Produto na tabela.", "Atenção!", JOptionPane.WARNING_MESSAGE);
 				}
 				}catch(Exception e){
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null,e);
 				}
 				
 			}
@@ -1130,7 +1130,7 @@ public class ApplicationFrame extends JFrame {
 
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							JOptionPane.showMessageDialog(null,e);
 						}
 				}else{
 					JOptionPane.showMessageDialog(null, "Selecione um Produto na tabela.", "Atenção!", JOptionPane.WARNING_MESSAGE);
@@ -1153,18 +1153,4 @@ public class ApplicationFrame extends JFrame {
 
 	}
 	
-	public JComboBox ComboBox_Tipo(int x, int y, int width, int height){
-		ResultSet rs = bd.ConsultarTipoProduto();
-		
-		JComboBox ComboBox = new JComboBox();
-		ComboBox.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		ComboBox.addItem("Selecione um Tipo");
-		try{
-		while(rs.next()) ComboBox.addItem(rs.getString(2));
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-		ComboBox.setBounds(x,y,width,height);	
-		return ComboBox;
-	}
 }
