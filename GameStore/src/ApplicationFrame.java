@@ -18,6 +18,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileFilter;
 import java.nio.channels.NetworkChannel;
 import java.text.Collator;
 
@@ -25,6 +27,7 @@ import javax.swing.JPasswordField;
 import java.awt.CardLayout;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
@@ -54,6 +57,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 
 public class ApplicationFrame extends JFrame {
@@ -71,7 +76,6 @@ public class ApplicationFrame extends JFrame {
 	private JTextField TXT_Name;
 	private JTextField TXT_Doc;
 	private JTextField TXT_Product;
-	private JTextField TXT_Tipo;
 	private JTable Table_Product;
 	private Object[][] tabelaArray; 
 	private JTextField TXT_ProductName;
@@ -119,11 +123,7 @@ public class ApplicationFrame extends JFrame {
 		} catch (Throwable e) {
 			JOptionPane.showMessageDialog(null,e);
 		}
-		
-		String jdbc = "jdbc:sqlserver://localhost:1433;databaseName=GAMESTORE";
-		
-		
-		
+
 		tabelaArray = new Object[9][5];
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -808,7 +808,7 @@ public class ApplicationFrame extends JFrame {
 		Panel_SideProducts.setBounds(0, 288, 4, 53);
 		Panel_Sidebar.add(Panel_SideProducts);
 		
-		JLabel Label_User_Name = new JLabel("LP.GON\u00C7ALVES");
+		JLabel Label_User_Name = new JLabel();
 		Label_User_Name.setHorizontalAlignment(SwingConstants.CENTER);
 		Label_User_Name.setForeground(SystemColor.textHighlight);
 		Label_User_Name.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -827,26 +827,30 @@ public class ApplicationFrame extends JFrame {
 		EditIMG.setIcon(new ImageIcon(ApplicationFrame.class.getResource("/com/jtattoo/plaf/icons/large/folder_closed_24x24.png")));
 		EditIMG.setBounds(1, 0, 29, 24);
 		Panel_UserPicture.add(EditIMG);
-		EditIMG.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+		
 		
 		JLabel Label_User_Picture = new JLabel("");
 		Label_User_Picture.setBounds(1, 0, 100, 100);
 		Panel_UserPicture.add(Label_User_Picture);
-		Label_User_Picture.setIcon(new ImageIcon("Images\\LP_SWU.jpg"));
+		
 		Label_User_Picture.setHorizontalAlignment(SwingConstants.CENTER);
 		Label_User_Picture.setForeground(SystemColor.textHighlight);
 		Label_User_Picture.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		Label_User_Picture.setAlignmentY(0.0f);
 		
+		EditIMG.addActionListener(new ActionListener(){
 
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String arquivo = GetPath();
+				if(arquivo != null){
+					ImageIcon icon= new ImageIcon(arquivo);
+					Label_User_Picture.setIcon(icon);
+					bd.SetIMG(arquivo,TXT_Login.getText());
+				}
+			}
+			
+		});
 		
 		Panel_Entrar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -860,7 +864,7 @@ public class ApplicationFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				bd = new BancoDados();
-				bd.ConectaBD(jdbc, "sa", "123456");
+				bd.ConectaBD("sa", "123456");
 				//if(bd.Autenticar(TXT_Login.getText(), TXT_Password.getText())){
 					CB_tipo_produto = new CB_Item(bd, 138, 137, 299, 33);
 					ComboBox_ProductType = new CB_Item(bd, 67, 81, 441, 30);
@@ -869,6 +873,9 @@ public class ApplicationFrame extends JFrame {
 					Panel_Add_Product.add(ComboBox_ProductType);
 					Panel_Products.add(CB_tipo_produto);
 					Panel_Edit_Product.add(ComboBox_Edit_Product);
+					
+					Label_User_Name.setText(TXT_Login.getText());
+					Label_User_Picture.setIcon(new ImageIcon(bd.GetIMG(TXT_Login.getText())));
 					
 					Panel_Entrar.setBackground(new Color(65, 105, 225));
 					Panel_Login.setVisible(false);
@@ -1168,5 +1175,21 @@ public class ApplicationFrame extends JFrame {
 		
 		panel.setVisible(true);
 
+	}
+	
+	public String GetPath(){
+		JFileChooser fc = new JFileChooser();
+                
+		FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image files", ImageIO.getReaderFileSuffixes());
+		fc.addChoosableFileFilter(imageFilter);
+		fc.setAcceptAllFileFilterUsed(true);
+        int res = fc.showOpenDialog(null);
+  
+        if(res == JFileChooser.APPROVE_OPTION){
+            String arquivo = fc.getSelectedFile().getPath();
+            return arquivo;
+         }
+        return null;
+       
 	}
 }

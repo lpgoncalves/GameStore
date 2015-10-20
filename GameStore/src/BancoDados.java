@@ -11,14 +11,13 @@ public class BancoDados {
 		
 	}
 	
-	public void ConectaBD(String connectUrl, String user, String senha) {
+	public void ConectaBD(String user, String senha) {
 		
 		try{
+			String jdbc = "jdbc:sqlserver://localhost:1433;databaseName=GAMESTORE";
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-			con = DriverManager.getConnection(connectUrl, user, senha);
+			con = DriverManager.getConnection(jdbc, user, senha);
 			JOptionPane.showMessageDialog(null,"Conexao realizada com sucesso.");
-
-		
 			
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null,"Não foi Possivel conectar no Banco de Dados.");
@@ -144,6 +143,29 @@ public class BancoDados {
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null,e);
 		}
+	}
+	
+	public void SetIMG(String path, String usuario){
+		try{
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("UPDATE usuarios SET imagem = '"+path+"' WHERE login = '"+usuario+"'");
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public String GetIMG(String usuario){
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT imagem FROM usuarios WHERE login = '"+usuario+"'");
+			rs.next();
+			String img = rs.getString("imagem");
+			return img;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public void CriarTabela(){
