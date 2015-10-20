@@ -823,6 +823,17 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar.add(Panel_UserPicture);
 		Panel_UserPicture.setLayout(null);
 		
+		JButton EditIMG = new JButton();
+		EditIMG.setIcon(new ImageIcon(ApplicationFrame.class.getResource("/com/jtattoo/plaf/icons/large/folder_closed_24x24.png")));
+		EditIMG.setBounds(1, 0, 29, 24);
+		Panel_UserPicture.add(EditIMG);
+		EditIMG.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+			
+		});
+		
 		JLabel Label_User_Picture = new JLabel("");
 		Label_User_Picture.setBounds(1, 0, 100, 100);
 		Panel_UserPicture.add(Label_User_Picture);
@@ -831,6 +842,8 @@ public class ApplicationFrame extends JFrame {
 		Label_User_Picture.setForeground(SystemColor.textHighlight);
 		Label_User_Picture.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		Label_User_Picture.setAlignmentY(0.0f);
+		
+
 		
 		Panel_Entrar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -864,6 +877,7 @@ public class ApplicationFrame extends JFrame {
 			}
 		});
 		
+
 	 
 		
 		Panel_Sidebar_Dashboard.addMouseListener(new MouseAdapter() {
@@ -1152,5 +1166,4 @@ public class ApplicationFrame extends JFrame {
 		panel.setVisible(true);
 
 	}
-	
 }
