@@ -828,7 +828,10 @@ public class ApplicationFrame extends JFrame {
 		EditIMG.setBounds(1, 0, 29, 24);
 		Panel_UserPicture.add(EditIMG);
 		EditIMG.addActionListener(new ActionListener(){
+
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
 				
 			}
 			
