@@ -84,9 +84,9 @@ public class ApplicationFrame extends JFrame {
 	private JTextField TXT_Edit_Name;
 	private BancoDados bd;
 	private JTextField TXT_ID;
-	public CB_Item CB_tipo_produto;
-	public CB_Item ComboBox_ProductType;
-	public CB_Item ComboBox_Edit_Product;
+	private CB_Item CB_tipo_produto;
+	private CB_Item ComboBox_ProductType;
+	private CB_Item ComboBox_Edit_Product;
 	private JTable Table_Orders;
 	private JTextField TextField_Dash_Product;
 	private JTextField TextField_Dash_Cliente;
