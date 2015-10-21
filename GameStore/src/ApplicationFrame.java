@@ -785,11 +785,6 @@ public class ApplicationFrame extends JFrame {
 		Panel_Sidebar.add(Panel_UserPicture);
 		Panel_UserPicture.setLayout(null);
 		
-		JButton EditIMG = new JButton();
-		EditIMG.setIcon(new ImageIcon(ApplicationFrame.class.getResource("/com/jtattoo/plaf/icons/large/folder_closed_24x24.png")));
-		EditIMG.setBounds(1, 0, 29, 24);
-		Panel_UserPicture.add(EditIMG);
-		
 		
 		JLabel Label_User_Picture = new JLabel("");
 		Label_User_Picture.setBounds(1, 0, 100, 100);
@@ -799,6 +794,11 @@ public class ApplicationFrame extends JFrame {
 		Label_User_Picture.setForeground(SystemColor.textHighlight);
 		Label_User_Picture.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		Label_User_Picture.setAlignmentY(0.0f);
+		
+		JButton EditIMG = new JButton();
+		EditIMG.setBounds(50, 111, 14, 14);
+		Panel_Sidebar.add(EditIMG);
+		EditIMG.setIcon(new ImageIcon(ApplicationFrame.class.getResource("/com/jtattoo/plaf/acryl/icons/large/tree_collapsed_15x15.png")));
 		
 		EditIMG.addActionListener(new ActionListener(){
 
