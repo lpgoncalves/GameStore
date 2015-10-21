@@ -516,6 +516,7 @@ public class ApplicationFrame extends JFrame {
 		rdbPendente.setBounds(173, 76, 109, 23);
 		status.add(rdbPendente);
 		Panel_Dashboard.add(rdbPendente);
+		rdbPendente.setSelected(true);
 		
 		JRadioButton rdbFinalizado = new JRadioButton("Finalizado");
 		rdbFinalizado.setBounds(326, 76, 146, 23);
@@ -887,7 +888,11 @@ public class ApplicationFrame extends JFrame {
 		
 		BT_Dash_Pesquisar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				ResultSet[] result = bd.ConsultarEncomenda(TextField_Dash_Product.getText(), TextField_Dash_Cliente.getText());
+				ResultSet[] result;
+				if(rdbPendente.isSelected())
+					result = bd.ConsultarEncomenda(TextField_Dash_Product.getText(), TextField_Dash_Cliente.getText());
+				else
+					result = bd.ConsultarCompra(TextField_Dash_Product.getText(), TextField_Dash_Cliente.getText());
 				ResultSet rs = result[0];
 				ResultSet count = result[1];			
 				

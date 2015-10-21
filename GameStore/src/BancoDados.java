@@ -54,7 +54,7 @@ public class BancoDados {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Produtos "
 									+ "INNER JOIN Encomendas_cliente ON Produtos.id_produto = Encomendas_cliente.id_produto "
-									+ "INNER JOIN Cliente ON Pedido_Cliente.id_cliente = Cliente.id_cliente "
+									+ "INNER JOIN Cliente ON Encomendas_cliente.id_cliente = Cliente.id_cliente "
 									+ "WHERE Produtos.nome_produto LIKE '"+ produto +"%' AND "
 									+ "Cliente.nome_cliente LIKE '"+cliente+"%'");
 			
@@ -62,7 +62,7 @@ public class BancoDados {
 			ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm "
 									+ "FROM Produtos "
 									+ "INNER JOIN Encomendas_cliente ON Produtos.id_produto = Encomendas_cliente.id_produto "
-									+ "INNER JOIN Cliente ON Pedido_Cliente.id_cliente = Cliente.id_cliente "
+									+ "INNER JOIN Cliente ON Encomendas_cliente.id_cliente = Cliente.id_cliente "
 									+ "WHERE Produtos.nome_produto LIKE '"+ produto +"%' AND "
 									+ "Cliente.nome_cliente LIKE '"+cliente+"%'");
 					
@@ -83,7 +83,7 @@ public class BancoDados {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Produtos "
 									+ "INNER JOIN Compras_Cliente ON Produtos.id_produto = Compras_Cliente.id_produto "
-									+ "INNER JOIN Cliente ON Pedido_Cliente.id_cliente = Cliente.id_cliente "
+									+ "INNER JOIN Cliente ON Compras_Cliente.id_cliente = Cliente.id_cliente "
 									+ "WHERE Produtos.nome_produto LIKE '"+ produto +"%' AND "
 									+ "Cliente.nome_cliente LIKE '"+cliente+"%'");
 			
@@ -91,7 +91,7 @@ public class BancoDados {
 			ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm "
 									+ "FROM Produtos "
 									+ "INNER JOIN Compras_Cliente ON Produtos.id_produto = Compras_Cliente.id_produto "
-									+ "INNER JOIN Cliente ON Pedido_Cliente.id_cliente = Cliente.id_cliente "
+									+ "INNER JOIN Cliente ON Compras_Cliente.id_cliente = Cliente.id_cliente "
 									+ "WHERE Produtos.nome_produto LIKE '"+ produto +"%' AND "
 									+ "Cliente.nome_cliente LIKE '"+cliente+"%'");
 					
