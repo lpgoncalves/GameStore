@@ -15,7 +15,10 @@ public class CB_Item extends JComboBox  {
 			while(rs.next()) addItem(rs.getString(2));
 			}catch(SQLException e){
 				JOptionPane.showMessageDialog(null,e);
-			}
+			
+		}catch(Exception e){
+			
+		}
 			setBounds(x,y,width,height);	
 	}
 

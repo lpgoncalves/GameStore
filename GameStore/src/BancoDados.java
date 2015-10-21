@@ -49,6 +49,64 @@ public class BancoDados {
 		return null;
 	}
 	
+	public ResultSet[] ConsultarEncomenda(String produto, String cliente){
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Produtos "
+									+ "INNER JOIN Encomendas_cliente ON Produtos.id_produto = Encomendas_cliente.id_produto "
+									+ "INNER JOIN Cliente ON Pedido_Cliente.id_cliente = Cliente.id_cliente "
+									+ "WHERE Produtos.nome_produto LIKE '"+ produto +"%' AND "
+									+ "Cliente.nome_cliente LIKE '"+cliente+"%'");
+			
+			Statement stmt1 = con.createStatement();
+			ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm "
+									+ "FROM Produtos "
+									+ "INNER JOIN Encomendas_cliente ON Produtos.id_produto = Encomendas_cliente.id_produto "
+									+ "INNER JOIN Cliente ON Pedido_Cliente.id_cliente = Cliente.id_cliente "
+									+ "WHERE Produtos.nome_produto LIKE '"+ produto +"%' AND "
+									+ "Cliente.nome_cliente LIKE '"+cliente+"%'");
+					
+			ResultSet[] result = new ResultSet[]{
+					rs, count
+			};
+			return result;
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println(e.getErrorCode());
+		}
+		return null;
+	}
+	
+	public ResultSet[] ConsultarCompra(String produto, String cliente){
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Produtos "
+									+ "INNER JOIN Compras_Cliente ON Produtos.id_produto = Compras_Cliente.id_produto "
+									+ "INNER JOIN Cliente ON Pedido_Cliente.id_cliente = Cliente.id_cliente "
+									+ "WHERE Produtos.nome_produto LIKE '"+ produto +"%' AND "
+									+ "Cliente.nome_cliente LIKE '"+cliente+"%'");
+			
+			Statement stmt1 = con.createStatement();
+			ResultSet count = stmt1.executeQuery("SELECT COUNT(*) AS tm "
+									+ "FROM Produtos "
+									+ "INNER JOIN Compras_Cliente ON Produtos.id_produto = Compras_Cliente.id_produto "
+									+ "INNER JOIN Cliente ON Pedido_Cliente.id_cliente = Cliente.id_cliente "
+									+ "WHERE Produtos.nome_produto LIKE '"+ produto +"%' AND "
+									+ "Cliente.nome_cliente LIKE '"+cliente+"%'");
+					
+			ResultSet[] result = new ResultSet[]{
+					rs, count
+			};
+			return result;
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println(e.getErrorCode());
+		}
+		return null;
+	}
+	
 	public ResultSet[] ConsultarProduto(String produto, int tipo){
 		try{
 			Statement stmt = con.createStatement();
@@ -87,9 +145,9 @@ public class BancoDados {
 			
 			return rs;
 		}catch(SQLException e){
-			e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 	}
 	
 	public boolean Autenticar(String login, String senha){
@@ -228,24 +286,24 @@ public class BancoDados {
 				"detalhes_cliente varchar(30), " +
 				"PRIMARY KEY (id_cliente))";
 		
-		String pedido_cliente = "CREATE TABLE Pedido_Cliente" +
-				"(id_pedido int IDENTITY(1,1) NOT NULL, " +
-				"data_pedido date, " +
-				"detalhes_pedido varchar(50), " +
+		String pedido_cliente = "CREATE TABLE Encomendas_cliente" +
+				"(id int IDENTITY(1,1) NOT NULL, " +
+				"data date, " +
+				"detalhes varchar(50), " +
 				"id_produto int, " +
 				"id_cliente int NOT NULL, " +
-				"PRIMARY KEY(id_pedido), "
+				"PRIMARY KEY(id), "
 				+"CONSTRAINT fk_id_cliente_pedido FOREIGN KEY(id_cliente) "
 				+"REFERENCES Cliente(id_cliente) "
 				+ "ON DELETE CASCADE)";
 	
 		String compras_cliente = "CREATE TABLE Compras_Cliente" +
-				"(id_compras int IDENTITY(1,1) NOT NULL, " +
-				"data_compras date NOT NULL, " +
-				"detalhes_compras varchar(50), " +
+				"(id int IDENTITY(1,1) NOT NULL, " +
+				"data date NOT NULL, " +
+				"detalhes varchar(50), " +
 				"id_produto int, " +
 				"id_cliente int NOT NULL, " +
-				"PRIMARY KEY(id_compras), "
+				"PRIMARY KEY(id), "
 				+"CONSTRAINT fk_id_cliente_compra FOREIGN KEY(id_cliente) "
 				+"REFERENCES Cliente(id_cliente) "
 				+ "ON DELETE CASCADE)";

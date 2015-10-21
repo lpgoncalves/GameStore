@@ -59,6 +59,7 @@ import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 
 public class ApplicationFrame extends JFrame {
@@ -77,7 +78,8 @@ public class ApplicationFrame extends JFrame {
 	private JTextField TXT_Doc;
 	private JTextField TXT_Product;
 	private JTable Table_Product;
-	private Object[][] tabelaArray; 
+	private Object[][] tabelaProduto; 
+	private Object[][] tabelaPedido;
 	private JTextField TXT_ProductName;
 	private JTextField TXT_Edit_Name;
 	private BancoDados bd;
@@ -124,8 +126,8 @@ public class ApplicationFrame extends JFrame {
 			JOptionPane.showMessageDialog(null,e);
 		}
 
-		tabelaArray = new Object[9][5];
-		
+		tabelaProduto = new Object[9][5];
+		tabelaPedido = new Object[9][7];
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 833, 775);
 		contentPane = new JPanel();
@@ -149,6 +151,15 @@ public class ApplicationFrame extends JFrame {
 		
 		JMenuItem mntmDesconectar = new JMenuItem("Desconectar");
 		mnLogin.add(mntmDesconectar);
+		
+		JMenuItem CriarTabela = new JMenuItem("Criar Tabelas");
+		mnLogin.add(CriarTabela);
+		
+		CriarTabela.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+						bd.CriarTabela();	
+			}
+		});
 		
 		JLabel LB_ImgBackground = new JLabel("");
 		LB_ImgBackground.setBounds(0, 41, 786, 146);
@@ -229,7 +240,7 @@ public class ApplicationFrame extends JFrame {
 		scrollPane.setViewportView(table);
 		table.setShowVerticalLines(true);
 		table.setModel(new DefaultTableModel(
-			tabelaArray,
+			tabelaProduto,
 			new String[] {
 				"ID", "Nome", "CPF/CNPJ", "Endere\u00E7o", "Obs"
 			}
@@ -412,46 +423,7 @@ public class ApplicationFrame extends JFrame {
 		LB_Tipo.setBounds(79, 138, 37, 24);
 		Panel_Products.add(LB_Tipo);
 		
-		
-		
-		
 		JButton button = new JButton("PESQUISAR");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ResultSet[] result = bd.ConsultarProduto(TXT_Product.getText(), CB_tipo_produto.getSelectedIndex());
-				ResultSet rs = result[0];
-				ResultSet count = result[1];
-				
-				try {
-					count.next();
-					int tm = count.getInt("tm");
-					if(tm < 9) tm = 9;
-					Object[][] tabela = new Object[tm][5];
-					int i = 0;
-					while(rs.next()){
-						if(i >= tm) break;
-						tabela[i][0] = rs.getInt("id_produto");
-						tabela[i][1] = rs.getString("nome_produto");
-						tabela[i][2] = rs.getString("descricao_tipo");
-						tabela[i][3] = rs.getString("descricao_produto");
-						tabela[i][4] = rs.getBigDecimal("preco_produto");
-						
-						i++;
-					}
-				
-					Table_Product.setModel(new DefaultTableModel(
-							tabela,
-							new String[] {
-									"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
-							}
-						));
-
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null,e);
-				}
-			}
-		});
 		button.setForeground(new Color(51, 153, 204));
 		button.setFont(new Font("Segoe UI Semilight", Font.BOLD, 14));
 		button.setBounds(336, 174, 101, 31);
@@ -463,7 +435,7 @@ public class ApplicationFrame extends JFrame {
 		
 		Table_Product = new JTable();
 		Table_Product.setModel(new DefaultTableModel(
-			tabelaArray,
+			tabelaProduto,
 			new String[] {
 				"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
 			}
@@ -489,10 +461,6 @@ public class ApplicationFrame extends JFrame {
 		Label_Dash_Top.setBounds(227, 5, 125, 28);
 		Panel_Dash_Top.add(Label_Dash_Top);
 		
-		JSlider Slider_Status = new JSlider();
-		Slider_Status.setBounds(280, 80, 53, 21);
-		Panel_Dashboard.add(Slider_Status);
-		
 		JScrollPane ScrollPane_Orders = new JScrollPane();
 		ScrollPane_Orders.setBounds(0, 235, 570, 271);
 		Panel_Dashboard.add(ScrollPane_Orders);
@@ -500,18 +468,7 @@ public class ApplicationFrame extends JFrame {
 		Table_Orders = new JTable();
 		Table_Orders.setShowVerticalLines(true);
 		Table_Orders.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
+			tabelaPedido,
 			new String[] {
 				"ID", "CPF/CNPJ", "Nome do Cliente", "Nome do Produto", "Data", "Pre\u00E7o", "Status"
 			}
@@ -522,18 +479,6 @@ public class ApplicationFrame extends JFrame {
 		Table_Orders.getColumnModel().getColumn(4).setPreferredWidth(79);
 		Table_Orders.getColumnModel().getColumn(5).setPreferredWidth(45);
 		ScrollPane_Orders.setViewportView(Table_Orders);
-		
-		JLabel Label_Pendente = new JLabel("PENDENTE");
-		Label_Pendente.setForeground(new Color(0, 153, 255));
-		Label_Pendente.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
-		Label_Pendente.setBounds(195, 80, 92, 14);
-		Panel_Dashboard.add(Label_Pendente);
-		
-		JLabel Label_Finalizado = new JLabel("FINALIZADO");
-		Label_Finalizado.setForeground(new Color(0, 153, 255));
-		Label_Finalizado.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
-		Label_Finalizado.setBounds(331, 80, 108, 14);
-		Panel_Dashboard.add(Label_Finalizado);
 		
 		TextField_Dash_Product = new JTextField();
 		TextField_Dash_Product.setColumns(10);
@@ -562,6 +507,22 @@ public class ApplicationFrame extends JFrame {
 		BT_Dash_Pesquisar.setFont(new Font("Segoe UI Semilight", Font.BOLD, 14));
 		BT_Dash_Pesquisar.setBounds(371, 193, 101, 31);
 		Panel_Dashboard.add(BT_Dash_Pesquisar);
+		
+		ButtonGroup status = new ButtonGroup();
+		
+		JRadioButton rdbPendente = new JRadioButton("Pendente");
+		rdbPendente.setForeground(new Color(0, 153, 255));
+		rdbPendente.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		rdbPendente.setBounds(173, 76, 109, 23);
+		status.add(rdbPendente);
+		Panel_Dashboard.add(rdbPendente);
+		
+		JRadioButton rdbFinalizado = new JRadioButton("Finalizado");
+		rdbFinalizado.setBounds(326, 76, 146, 23);
+		rdbFinalizado.setForeground(new Color(0, 153, 255));
+		rdbFinalizado.setFont(new Font("Segoe UI Semilight", Font.BOLD, 16));
+		status.add(rdbFinalizado);
+		Panel_Dashboard.add(rdbFinalizado);
 		
 		Panel_Add_Product = new JPanel();
 		Panel_Card.add(Panel_Add_Product, "name_6273018122703");
@@ -887,7 +848,86 @@ public class ApplicationFrame extends JFrame {
 			}
 		});
 		
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ResultSet[] result = bd.ConsultarProduto(TXT_Product.getText(), CB_tipo_produto.getSelectedIndex());
+				ResultSet rs = result[0];
+				ResultSet count = result[1];
+				
+				try {
+					count.next();
+					int tm = count.getInt("tm");
+					if(tm < 9) tm = 9;
+					Object[][] tabela = new Object[tm][5];
+					int i = 0;
+					while(rs.next()){
+						if(i >= tm) break;
+						tabela[i][0] = rs.getInt("id_produto");
+						tabela[i][1] = rs.getString("nome_produto");
+						tabela[i][2] = rs.getString("descricao_tipo");
+						tabela[i][3] = rs.getString("descricao_produto");
+						tabela[i][4] = rs.getBigDecimal("preco_produto");
+						
+						i++;
+					}
+				
+					Table_Product.setModel(new DefaultTableModel(
+							tabela,
+							new String[] {
+									"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
+							}
+						));
 
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null,e);
+				}
+			}
+		});
+		
+		BT_Dash_Pesquisar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				ResultSet[] result = bd.ConsultarEncomenda(TextField_Dash_Product.getText(), TextField_Dash_Cliente.getText());
+				ResultSet rs = result[0];
+				ResultSet count = result[1];			
+				
+				try {
+					count.next();
+					int tm = count.getInt("tm");
+					if(tm < 9) tm = 9;
+					Object[][] tabela = new Object[tm][7];
+					int i = 0;
+					while(rs.next()){
+						if(i >= tm) break;
+						tabela[i][0] = rs.getInt("id");
+						tabela[i][1] = rs.getString("codigo_cliente");
+						tabela[i][2] = rs.getString("nome_cliente");
+						tabela[i][3] = rs.getString("nome_produto");
+						tabela[i][4] = rs.getDate("data");
+						tabela[i][5] = rs.getBigDecimal("preco_produto");
+						tabela[i][6] = "";
+						i++;
+					}
+					Table_Orders.setModel(new DefaultTableModel(
+							tabela,
+							new String[] {
+								"ID", "CPF/CNPJ", "Nome do Cliente", "Nome do Produto", "Data", "Pre\u00E7o", "Status"
+							}
+						));
+					
+					Table_Orders.getColumnModel().getColumn(0).setPreferredWidth(27);
+					Table_Orders.getColumnModel().getColumn(2).setPreferredWidth(123);
+					Table_Orders.getColumnModel().getColumn(3).setPreferredWidth(98);
+					Table_Orders.getColumnModel().getColumn(4).setPreferredWidth(79);
+					Table_Orders.getColumnModel().getColumn(5).setPreferredWidth(45);
+
+				} catch (SQLException er) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null,er);
+				}
+			}
+			
+		});
 	 
 		
 		Panel_Sidebar_Dashboard.addMouseListener(new MouseAdapter() {
@@ -978,7 +1018,7 @@ public class ApplicationFrame extends JFrame {
 				LB_Products.setForeground(Color.BLACK);
 				LB_Products.setFont(LB_Products.getFont().deriveFont(Font.BOLD));
 				Table_Product.setModel(new DefaultTableModel(
-						tabelaArray,
+						tabelaProduto,
 						new String[] {
 							"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
 						}
@@ -1054,7 +1094,7 @@ public class ApplicationFrame extends JFrame {
 					JOptionPane.showMessageDialog(null,"O Produto foi alterado com sucesso");
 					
 					Table_Product.setModel(new DefaultTableModel(
-							tabelaArray,
+							tabelaProduto,
 							new String[] {
 								"Id", "Nome", "Tipo", "Descri\u00E7\u00E3o", "Pre\u00E7o"
 							}
