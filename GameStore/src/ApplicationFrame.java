@@ -91,9 +91,10 @@ public class ApplicationFrame extends JFrame {
 	private JTextField TextField_Dash_Product;
 	private JTextField TextField_Dash_Cliente;
 	private JPanel Panel_Dashboard;
+	private String Selected;
 
 	/**
-	 * Launch the application.
+	 * Abre a aplicação.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -116,7 +117,7 @@ public class ApplicationFrame extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Cria o frame.
 	 */
 	public ApplicationFrame() {
 		setResizable(false);
@@ -318,10 +319,8 @@ public class ApplicationFrame extends JFrame {
 							}
 						));
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null,e);
-				}
-						
+				}		
 			}
 		});
 		BT_Pesquisar.setFont(new Font("Segoe UI Semilight", Font.BOLD, 14));
@@ -783,8 +782,7 @@ public class ApplicationFrame extends JFrame {
 		Panel_UserPicture.setBorder(new LineBorder(SystemColor.controlShadow, 1, true));
 		Panel_UserPicture.setBounds(50, 11, 102, 102);
 		Panel_Sidebar.add(Panel_UserPicture);
-		Panel_UserPicture.setLayout(null);
-		
+		Panel_UserPicture.setLayout(null);		
 		
 		JLabel Label_User_Picture = new JLabel("");
 		Label_User_Picture.setBounds(1, 0, 100, 100);
@@ -810,8 +808,7 @@ public class ApplicationFrame extends JFrame {
 					Label_User_Picture.setIcon(icon);
 					bd.SetIMG(arquivo,TXT_Login.getText());
 				}
-			}
-			
+			}	
 		});
 		
 		Panel_Entrar.addMouseListener(new MouseAdapter() {
@@ -825,19 +822,19 @@ public class ApplicationFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				bd = new BancoDados();
-				bd.ConectaBD("sa", "123456");
-				//if(bd.Autenticar(TXT_Login.getText(), TXT_Password.getText())){
-					CB_tipo_produto = new CB_Item(bd, 138, 137, 299, 33);
-					ComboBox_ProductType = new CB_Item(bd, 67, 81, 441, 30);
-					ComboBox_Edit_Product = new CB_Item(bd, 67, 81, 441, 30);
-					
-					Panel_Add_Product.add(ComboBox_ProductType);
-					Panel_Products.add(CB_tipo_produto);
-					Panel_Edit_Product.add(ComboBox_Edit_Product);
-					
-					Label_User_Name.setText(TXT_Login.getText());
-					Label_User_Picture.setIcon(new ImageIcon(bd.GetIMG(TXT_Login.getText())));
+//				bd = new BancoDados();
+//				bd.ConectaBD("sa", "123456");
+//				//if(bd.Autenticar(TXT_Login.getText(), TXT_Password.getText())){
+//					CB_tipo_produto = new CB_Item(bd, 138, 137, 299, 33);
+//					ComboBox_ProductType = new CB_Item(bd, 67, 81, 441, 30);
+//					ComboBox_Edit_Product = new CB_Item(bd, 67, 81, 441, 30);
+//					
+//					Panel_Add_Product.add(ComboBox_ProductType);
+//					Panel_Products.add(CB_tipo_produto);
+//					Panel_Edit_Product.add(ComboBox_Edit_Product);
+//					
+//					Label_User_Name.setText(TXT_Login.getText());
+//					Label_User_Picture.setIcon(new ImageIcon(bd.GetIMG(TXT_Login.getText())));
 					
 					Panel_Entrar.setBackground(new Color(65, 105, 225));
 					Panel_Login.setVisible(false);
@@ -880,7 +877,6 @@ public class ApplicationFrame extends JFrame {
 						));
 
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null,e);
 				}
 			}
@@ -927,7 +923,6 @@ public class ApplicationFrame extends JFrame {
 					Table_Orders.getColumnModel().getColumn(5).setPreferredWidth(45);
 
 				} catch (SQLException er) {
-					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null,er);
 				}
 			}
@@ -954,8 +949,7 @@ public class ApplicationFrame extends JFrame {
 					Panel_SideDashboard.setBackground(Color.white);
 					LB_Dashboard.setForeground(SystemColor.textHighlight);
 					LB_Dashboard.setFont(LB_Dashboard.getFont().deriveFont(Font.PLAIN));
-				}
-				
+				}				
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -978,8 +972,7 @@ public class ApplicationFrame extends JFrame {
 				if (Panel_Client.isVisible()) {
 					Panel_SideCustomers.setBackground(SystemColor.textHighlight);
 					LB_Customers.setForeground(Color.BLACK);
-					LB_Customers.setFont(LB_Customers.getFont().deriveFont(Font.BOLD));
-					
+					LB_Customers.setFont(LB_Customers.getFont().deriveFont(Font.BOLD));					
 				
 				} else {
 					Panel_SideCustomers.setBackground(Color.white);
@@ -1135,9 +1128,7 @@ public class ApplicationFrame extends JFrame {
 					TXTA_Edit_TextArea.setText(descricao);
 					Spinner_Edit_Price.setText(preco);
 					ComboBox_Edit_Product.setSelectedItem(Table_Product.getValueAt(linha, 2));;
-					
-					
-				
+														
 				TrocaDeTela(Panel_Edit_Product);
 				}else{
 					JOptionPane.showMessageDialog(null, "Selecione um Produto na tabela.", "Atenção!", JOptionPane.WARNING_MESSAGE);
@@ -1198,7 +1189,6 @@ public class ApplicationFrame extends JFrame {
 							));
 
 						} catch (SQLException e) {
-							// TODO Auto-generated catch block
 							JOptionPane.showMessageDialog(null,e);
 						}
 				}else{
@@ -1219,7 +1209,11 @@ public class ApplicationFrame extends JFrame {
 		Panel_Dashboard.setVisible(false);
 		
 		panel.setVisible(true);
-
+	}
+	
+	public void OnHover(JPanel sidePanel,JLabel Text, boolean flag )
+	{
+		//TODO
 	}
 	
 	public String GetPath(){
